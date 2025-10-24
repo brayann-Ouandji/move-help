@@ -57,38 +57,41 @@ include 'includes/header.php';
           'trajet' => 'Paris 15ème → Versailles', 
           'volume' => '25 m³', 
           'nb_demenageurs' => '2 déménageurs recherchés',
-          'date' => '15 Novembre 2025'
+          'date' => '15 Novembre 2025',
+          'image' => 'principale.jpg'
         ),
         array(
           'titre' => 'STUDIO ETUDIANT SANS ASCENSEUR', 
           'trajet' => 'Lyon 3ème → Villeurbanne', 
           'volume' => '12 m³', 
           'nb_demenageurs' => '1 déménageur recherché',
-          'date' => '18 Novembre 2025'
+          'date' => '18 Novembre 2025',
+          'image' => 'principale1.jpg'
         ),
         array(
           'titre' => 'MAISON DE 4 CHAMBRE AVEC GARAGE', 
           'trajet' => 'Marseille → Aix-en-Provence', 
           'volume' => '45 m³', 
           'nb_demenageurs' => '3 déménageurs recherchés',
-          'date' => '30 Novembre 2025'
+          'date' => '30 Novembre 2025',
+          'image' => 'principale2.jpg'
         ),
       );
 
       foreach ($annonces_recentes as $annonce) {
         echo '<div class="col-md-4 mb-3">';
         echo '  <div class="card h-100">'; // h-100 pour que les cartes aient la même hauteur
-        echo '    <img src="image/principale.jpg" class="card-img-top" alt="Image déménagement">';
+        echo '   <img src="image/' . $annonce['image'] . '" class="card-img-top" alt="' .$annonce['titre']. '">'; // <img src="image/principale1.jpg" class="card-img-top" alt="Image déménagement">';
         echo '    <div class="card-body d-flex flex-column">';
-        echo '      <h5 class="card-title fw-bold">' . htmlspecialchars($annonce['titre']) . '</h5>';
-        echo '      <h6 class="card-subtitle mb-2 text-muted">' . htmlspecialchars($annonce['trajet']) . '</h6>';
-        echo '      <p class="card-text mb-1">Volume : ' . htmlspecialchars($annonce['volume']) . '</p>';
-        echo '      <p class="card-text">' . htmlspecialchars($annonce['nb_demenageurs']) . '</p>';
+        echo '      <h5 class="card-title fw-bold">' . $annonce['titre'] . '</h5>';
+        echo '      <h6 class="card-subtitle mb-2 text-muted">' . $annonce['trajet'] . '</h6>';
+        echo '      <p class="card-text mb-1">Volume : ' . $annonce['volume'] . '</p>';
+        echo '      <p class="card-text">' . $annonce['nb_demenageurs'] . '</p>';
         
         // La date (sera stylisée en orange via CSS)
         // mt-auto pousse la date en bas de la carte
         echo '      <div class="mt-auto text-center">';
-        echo '        <span class="date-badge">' . htmlspecialchars($annonce['date']) . '</span>';
+        echo '        <span class="date-badge">' . $annonce['date'] . '</span>';
         echo '      </div>';
         
         echo '    </div>';
