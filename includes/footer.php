@@ -32,10 +32,10 @@
         <h5 class="text-warning text-uppercase">Contact</h5>
         <ul class="list-unstyled mb-0">
           <li class="mb-2">
-            <i class="bi bi-envelope-fill me-2"></i> contact@move_help.fr
+            <i class="bi bi-envelope-fill me-2"></i> <a href='mailto:contact@move_help.fr'>contact@move_help.fr</a>
           </li>
           <li class="mb-2">
-            <i class="bi bi-telephone-fill me-2"></i> 07 80 20 60 10
+            <i class="bi bi-telephone-fill me-2"></i> <a href='tel: 07 80 20 60 10'>07 80 20 60 10</a>
           </li>
           <li class="mb-2">
             <i class="bi bi-clock-fill me-2"></i> Du lundi au vendredi, 9h-18h
