@@ -15,7 +15,7 @@ $_SESSION['user_nom'] = 'OUANDJI';   // Nom simulé
 // -------------------------
 */
 
-// VERIFICATION DE SECURITE
+// VERIFICATION DE SECURITE ---
 
 // 1. On vérifie si l'utilisateur n'est PAS connecté
 if ( !isset($_SESSION['user_id']) ) {
