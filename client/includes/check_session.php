@@ -2,7 +2,7 @@
 // Démarrage de la session (doit être au TOUT début)
 session_start();
 
-/*
+
 // ---- POUR Les TESTS ----
 // On simule une session utilisateur connectée
 
@@ -13,7 +13,7 @@ $_SESSION['user_prenom'] = 'Brayann'; // Prénom simulé
 $_SESSION['user_nom'] = 'OUANDJI';   // Nom simulé
 
 // -------------------------
-*/
+
 
 // VERIFICATION DE SECURITE ---
 
