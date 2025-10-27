@@ -1,78 +1,84 @@
 <?php
-$titre_page = "Publier une nouvelle annonce";
-include 'includes/header_client.php';
+$titre_page = "Trouver des annonces";
+include 'includes/header_demenageur.php';
 ?>
 
-<div class="container py-4">
-    <h1 class="mb-4 text-center text-primary"><i class="bi bi-pencil-square"></i> Publier une nouvelle annonce</h1>
-    <p class="text-muted text-center mb-5">Remplissez ce formulaire pour décrire votre besoin.</p>
+<h1>Annonces disponibles</h1>
+<p>Recherchez une mission et faites votre proposition.</p>
 
-    <form method="POST" action="traitement_annonce.php">
-        <!-- Informations générales -->
-        <div class="card mb-4 shadow-sm">
-            <div class="card-header bg-light">
-                <h5 class="mb-0"><i class="bi bi-info-circle"></i> Informations générales</h5>
+<div class="card mb-4">
+    <div class="card-body">
+        <form class="row g-3">
+            <div class="col-md-4">
+                <label for="filtre_ville" class="form-label">Ville de départ</label>
+                <input type="text" class="form-control" id="filtre_ville" placeholder="Rouen, Paris...">
             </div>
-            <div class="card-body">
-                <div class="mb-3">
-                    <label class="form-label">Titre de l'annonce</label>
-                    <input type="text" name="titre" class="form-control" placeholder="Ex: Déménagement T3, Transport canapé..." required>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Description</label>
-                    <textarea name="description" class="form-control" rows="4" placeholder="Donnez plus de détails..." required></textarea>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">Date du déménagement</label>
-                        <input type="date" name="date" class="form-control" required>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">Heure de début</label>
-                        <select name="heure" class="form-select" required>
-                            <option value="">Sélectionnez une heure</option>
-                            <?php
-                            for ($h = 6; $h <= 20; $h++) {
-                                $heure = sprintf("%02d:00", $h);
-                                echo "<option value=\"$heure\">$heure</option>";
-                            }
-                            ?>
-                        </select>
-                    </div>
-                </div>
+            <div class="col-md-4">
+                <label for="filtre_date" class="form-label">Date</label>
+                <input type="date" class="form-control" id="filtre_date">
             </div>
-        </div>
-
-        <!-- Lieu de départ -->
-        <div class="card mb-4 shadow-sm">
-            <div class="card-header bg-light">
-                <h5 class="mb-0"><i class="bi bi-geo-alt"></i> Lieu de départ</h5>
+            <div class="col-md-2">
+                <label for="filtre_volume" class="form-label">Volume (m³)</label>
+                <input type="number" class="form-control" id="filtre_volume" min="1">
             </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">Adresse</label>
-                        <input type="text" name="adresse_depart" class="form-control" placeholder="Numéro et rue" required>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <label class="form-label">Code postal</label>
-                        <input type="text" name="cp_depart" class="form-control" required>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                        <label class="form-label">Ville</label>
-                        <input type="text" name="ville_depart" class="form-control" required>
-                    </div>
-                </div>
+            <div class="col-md-2 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary w-100">Filtrer</button>
             </div>
-        </div>
-
-        <!-- Bouton de soumission -->
-        <div class="text-center">
-            <button type="submit" class="btn btn-success px-5">
-                <i class="bi bi-send"></i> Publier l'annonce
-            </button>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
 
-<?php include 'includes/footer_client.php'; ?>
+<div class="row">
+
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Déménagement F3 Paris -> Lyon</h5>
+                <h6 class="card-subtitle mb-2 text-muted">30/11/2025</h6>
+                <p class="card-text">
+                    <strong>Trajet:</strong> Paris (75015) → Lyon (69003)<br>
+                    <strong>Volume:</strong> 30m³<br>
+                    <strong>Souhaité:</strong> 2 déménageurs
+                </p>
+                <span class="badge bg-warning">Vous avez déjà proposé</span>
+                <a href="annonce-detail.php?id=1" class="btn btn-primary float-end">Voir détails</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Transport Piano Rouen</h5>
+                <h6 class="card-subtitle mb-2 text-muted">02/12/2025</h6>
+                <p class="card-text">
+                    <strong>Trajet:</strong> Rouen → Rouen<br>
+                    <strong>Volume:</strong> 3m³<br>
+                    <strong>Souhaité:</strong> 1 déménageur
+                </p>
+                <span class="badge bg-success">Mission acceptée</span>
+                <a href="annonce-detail.php?id=2" class="btn btn-primary float-end">Voir détails</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Transport Frigo Américain</h5>
+                <h6 class="card-subtitle mb-2 text-muted">28/11/2025</h6>
+                <p class="card-text">
+                    <strong>Trajet:</strong> Le Havre → Le Havre<br>
+                    <strong>Volume:</strong> 2m³<br>
+                    <strong>Souhaité:</strong> 1 déménageur
+                </p>
+                <a href="annonce-detail.php?id=4" class="btn btn-primary float-end">Voir et Proposer</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<?php
+include 'includes/footer_demenageur.php';
+?>
