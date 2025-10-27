@@ -25,7 +25,7 @@ include 'includes/header_demenageur.php';
                     <i class="bi bi-telephone-fill"></i> 
                     <a href="tel:0612345678">06 12 34 56 78</a>
                 </p>
-                <a href="annonce-detail.php?id=2" class="btn btn-primary btn-sm">Revoir l'annonce complète</a>
+                <a href="detail_annonce.php?id=2" class="btn btn-primary btn-sm">Revoir l'annonce complète</a>
             </div>
         </div>
     </div>
