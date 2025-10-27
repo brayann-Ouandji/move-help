@@ -1,6 +1,19 @@
 <?php
 $titre_page = "Détail de l'annonce";
 include 'includes/header_demenageur.php';
+// On simule la récupération de l'annonce
+$annonce_id = isset($_GET['id']) ? $_GET['id'] : 1;
+$annonce = [
+    'titre' => 'Déménagement F3 Paris -> Lyon',
+    'date_dem' => '30 Novembre 2025 à 09:00',
+    'description' => 'Bonjour, je cherche 2 personnes pour m\'aider à déménager. Les gros meubles sont : 1 canapé, 1 machine à laver, 1 frigo, 2 lits.',
+    'ville_depart' => 'Paris (75015)',
+    'logement_depart' => 'Appartement, 3ème étage, AVEC ascenseur',
+    'ville_arrivee' => 'Lyon (69003)',
+    'logement_arrivee' => 'Maison, plain-pied',
+    'volume' => 30,
+    'nb_demenageurs' => 2
+];
 ?>
 
 <nav aria-label="breadcrumb">

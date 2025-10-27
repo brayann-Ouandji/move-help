@@ -1,90 +1,63 @@
 <?php
-$titre_page = "Mes propositions";
+$titre_page = "Mes Propositions";
 include 'includes/header_demenageur.php';
 ?>
 
-<h1 class="mb-4">Mes propositions</h1>
+<h1>Mes Propositions</h1>
+<p>Suivez le statut des offres que vous avez envoyées.</p>
 
-<!-- Filtres par statut -->
-<div class="card mb-4">
-    <div class="card-body">
-        <div class="btn-group w-100" role="group">
-            <a href="?statut=toutes" class="btn btn-outline-primary active">Toutes (8)</a>
-            <a href="?statut=en_attente" class="btn btn-outline-warning">En attente (5)</a>
-            <a href="?statut=acceptees" class="btn btn-outline-success">Acceptées (2)</a>
-            <a href="?statut=refusees" class="btn btn-outline-danger">Refusées (1)</a>
+<ul class="nav nav-tabs mb-3">
+    <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="#">Toutes</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">En attente</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Acceptées</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Refusées</a>
+    </li>
+</ul>
+
+<div class="list-group">
+    
+    <a href="annonce-detail.php?id=2" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+            <div>
+                <h5 class="mb-1">Transport Piano Rouen</h5>
+                <small>Annonce pour le 02/12/2025</small>
+            </div>
+            <span class="badge bg-success fs-6">Acceptée</span>
         </div>
-    </div>
+        <p class="mb-1 mt-2">Votre proposition : <strong>80,00 €</strong></p>
+    </a>
+    
+    <a href="annonce-detail.php?id=1" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+            <div>
+                <h5 class="mb-1">Déménagement F3 Paris -> Lyon</h5>
+                <small>Annonce pour le 30/11/2025</small>
+            </div>
+            <span class="badge bg-warning fs-6">En attente</span>
+        </div>
+        <p class="mb-1 mt-2">Votre proposition : <strong>450,00 €</strong></p>
+    </a>
+    
+    <a href="annonce-detail.php?id=3" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+            <div>
+                <h5 class="mb-1">Studio Étudiant</h5>
+                <small>Annonce du 20/10/2025</small>
+            </div>
+            <span class="badge bg-danger fs-6">Refusée</span>
+        </div>
+        <p class="mb-1 mt-2">Votre proposition : <strong>120,00 €</strong></p>
+    </a>
+
 </div>
 
-<!-- Liste des propositions -->
-<div class="row">
-    <div class="col-md-4 mb-4">
-        <div class="card h-100 border-success">
-            <div class="card-header bg-success text-white">
-                <i class="bi bi-check-circle"></i> Acceptée
-                <span class="badge bg-danger float-end">Nouveau</span>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">Déménagement F3 Paris -> Lyon</h5>
-                <p class="text-muted small">
-                    <i class="bi bi-person"></i> Client: Jean Dupont<br>
-                    <i class="bi bi-calendar"></i> 15/11/2025 à 09:00<br>
-                    <i class="bi bi-geo-alt"></i> Paris → Lyon
-                </p>
-                <hr>
-                <h4 class="text-success">350.00 €</h4>
-                <p class="small text-muted">Proposé le 05/11/2025</p>
-            </div>
-            <div class="card-footer bg-transparent">
-                <a href="annonce_detail.php?id=1" class="btn btn-primary btn-sm w-100">Voir l'annonce</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-4 mb-4">
-        <div class="card h-100 border-warning">
-            <div class="card-header bg-warning">
-                <i class="bi bi-clock"></i> En attente
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">Transport Piano Nice</h5>
-                <p class="text-muted small">
-                    <i class="bi bi-person"></i> Client: Marie Martin<br>
-                    <i class="bi bi-calendar"></i> 22/11/2025 à 14:00<br>
-                    <i class="bi bi-geo-alt"></i> Nice → Nice
-                </p>
-                <hr>
-                <h4 class="text-success">150.00 €</h4>
-                <p class="small text-muted">Proposé le 07/11/2025</p>
-            </div>
-            <div class="card-footer bg-transparent">
-                <a href="annonce_detail.php?id=2" class="btn btn-primary btn-sm w-100">Voir l'annonce</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-4 mb-4">
-        <div class="card h-100 border-success">
-            <div class="card-header bg-success text-white">
-                <i class="bi bi-check-circle"></i> Acceptée
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">Studio Marseille</h5>
-                <p class="text-muted small">
-                    <i class="bi bi-person"></i> Client: Sophie Dubois<br>
-                    <i class="bi bi-calendar"></i> 20/11/2025 à 14:00<br>
-                    <i class="bi bi-geo-alt"></i> Marseille → Aix-en-Provence
-                </p>
-                <hr>
-                <h4 class="text-success">180.00 €</h4>
-                <p class="small text-muted">Proposé le 06/11/2025</p>
-            </div>
-            <div class="card-footer bg-transparent">
-                <a href="annonce_detail.php?id=3" class="btn btn-primary btn-sm w-100">Voir l'annonce</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<?php include 'includes/footer_demenageur.php'; ?>
+<?php
+include 'includes/footer_demenageur.php';
+?>
