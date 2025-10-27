@@ -31,7 +31,7 @@ include 'check_session.php';
             <a class="nav-link" href="dashboard.php">Tableau de bord</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="annonces.php">chercher des annonces</a>
+            <a class="nav-link" href="annonce.php">chercher des annonces</a>
           </li>
           <li class="nav-item">
             <a class="nav-link btn btn-primary text-white" href="mes_proposition.php">

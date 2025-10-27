@@ -41,7 +41,7 @@ include 'includes/header_demenageur.php';
                     <strong>Souhaité:</strong> 2 déménageurs
                 </p>
                 <span class="badge bg-warning">Vous avez déjà proposé</span>
-                <a href="annonce-detail.php?id=1" class="btn btn-primary float-end">Voir détails</a>
+                <a href="detail_annonce.php?id=1" class="btn btn-primary float-end">Voir détails</a>
             </div>
         </div>
     </div>
@@ -57,7 +57,7 @@ include 'includes/header_demenageur.php';
                     <strong>Souhaité:</strong> 1 déménageur
                 </p>
                 <span class="badge bg-success">Mission acceptée</span>
-                <a href="annonce-detail.php?id=2" class="btn btn-primary float-end">Voir détails</a>
+                <a href="detail_annonce.php?id=2" class="btn btn-primary float-end">Voir détails</a>
             </div>
         </div>
     </div>
@@ -72,7 +72,7 @@ include 'includes/header_demenageur.php';
                     <strong>Volume:</strong> 2m³<br>
                     <strong>Souhaité:</strong> 1 déménageur
                 </p>
-                <a href="annonce-detail.php?id=4" class="btn btn-primary float-end">Voir et Proposer</a>
+                <a href="detail_annonce.php?id=4" class="btn btn-primary float-end">Voir et Proposer</a>
             </div>
         </div>
     </div>

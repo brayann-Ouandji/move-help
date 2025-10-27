@@ -8,13 +8,13 @@ include 'includes/header_demenageur.php';
 
 <ul class="nav nav-tabs mb-3">
     <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="#">Toutes</a>
+        <a class="nav-link active" aria-current="page" href="mes_propositions.php">Toutes</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="#">En attente</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#">Acceptées</a>
+        <a class="nav-link" href="acceptes.php">Acceptées</a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="#">Refusées</a>
@@ -23,7 +23,7 @@ include 'includes/header_demenageur.php';
 
 <div class="list-group">
     
-    <a href="annonce-detail.php?id=2" class="list-group-item list-group-item-action">
+    <a href="detail_annonce.php?id=2" class="list-group-item list-group-item-action">
         <div class="d-flex w-100 justify-content-between">
             <div>
                 <h5 class="mb-1">Transport Piano Rouen</h5>
@@ -34,7 +34,7 @@ include 'includes/header_demenageur.php';
         <p class="mb-1 mt-2">Votre proposition : <strong>80,00 €</strong></p>
     </a>
     
-    <a href="annonce-detail.php?id=1" class="list-group-item list-group-item-action">
+    <a href="detail_annonce.php?id=1" class="list-group-item list-group-item-action">
         <div class="d-flex w-100 justify-content-between">
             <div>
                 <h5 class="mb-1">Déménagement F3 Paris -> Lyon</h5>
@@ -45,7 +45,7 @@ include 'includes/header_demenageur.php';
         <p class="mb-1 mt-2">Votre proposition : <strong>450,00 €</strong></p>
     </a>
     
-    <a href="annonce-detail.php?id=3" class="list-group-item list-group-item-action">
+    <a href="detail_annonce.php?id=3" class="list-group-item list-group-item-action">
         <div class="d-flex w-100 justify-content-between">
             <div>
                 <h5 class="mb-1">Studio Étudiant</h5>
