@@ -1,6 +1,6 @@
 <?php
 $titre_page = "Tableau de bord";
-include 'includes/header_client.php';
+include 'includes/header_demenageur.php';
 ?>
 
 <h1 class="mb-4">Bienvenue, <?php echo $_SESSION['user_prenom'] . ' ' . $_SESSION['user_nom']; ?> !</h1>
@@ -65,5 +65,5 @@ include 'includes/header_client.php';
         
 
 <?php
-include 'includes/footer_client.php';
+include 'includes/footer_demenageur.php';
 ?>
