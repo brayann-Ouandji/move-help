@@ -14,13 +14,13 @@
         <h5 class="text-warning text-uppercase">Liens utiles</h5>
         <ul class="list-unstyled mb-0">
           <li class="mb-2">
-            <a href="#!" class="text-light text-decoration-none">Mentions légales</a>
+            <a href='Mentions-legales-site-internet-Move&Help.pdf' download class="text-light text-decoration-none">Mentions légales</a>
           </li>
           <li class="mb-2">
-            <a href="#!" class="text-light text-decoration-none">CGU</a>
+            <a href='CGU move&help.pdf'  download class="text-light text-decoration-none" >CGU</a>
           </li>
           <li class="mb-2">
-            <a href="#!" class="text-light text-decoration-none">Politique de confidentialité</a>
+            <a href='politique de confidentialite move&help.pdf' download class="text-light text-decoration-none">Politique de confidentialité</a>
           </li>
           <li class="mb-2">
             <a href="#!" class="text-light text-decoration-none">FAQ</a>
