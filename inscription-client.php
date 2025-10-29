@@ -5,7 +5,7 @@ session_start();
 
 if (isset($_SESSION['error_message'])) {
     // Afficher le message d'erreur dans une alerte Bootstrap
-    echo '<div class="alert alert-danger" role="alert">' . htmlspecialchars($_SESSION['error_message']) . '</div>';
+    echo '<div class="alert alert-danger" role="alert">' . $_SESSION['error_message']. '</div>';
     // Supprimer le message pour ne pas l'afficher à nouveau
     unset($_SESSION['error_message']);
 }

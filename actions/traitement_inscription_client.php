@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit;
     }
 
-    //  Vérifier la complexité du mot de passe
+
     if (strlen($password) < 8) {
         $_SESSION['error_message'] = "Le mot de passe doit faire au moins 8 caractères.";
         header('Location: ../inscription-client.php');
@@ -44,9 +44,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // 
     $password_hash = password_hash($password, PASSWORD_BCRYPT);
 
-    // 6. Insérer les données dans la base de données
     
-    // 6.1. Vérifier si l'email existe déjà (avec une requête préparée)
+
     $sql_check = "SELECT id_utilisateur FROM UTILISATEUR WHERE email = ?";
     $stmt_check = $mysqli->prepare($sql_check);
     $stmt_check->bind_param('s', $email);
@@ -89,10 +88,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt_client->bind_param('is', $id_utilisateur_cree, $ville_defaut);
         $stmt_client->execute();
         
-       
+        
         $mysqli->commit();
 
-        // 7. Connecter l'utilisateur automatiquement
+        
         $_SESSION['user_id'] = $id_utilisateur_cree;
         $_SESSION['user_role'] = 'client';
         $_SESSION['user_prenom'] = $prenom;

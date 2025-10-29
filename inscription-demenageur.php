@@ -1,6 +1,14 @@
 <?php
 $titre_page = "Inscription Déménageur";
 include 'includes/header.php';
+session_start(); 
+
+if (isset($_SESSION['error_message'])) {
+    // Afficher le message d'erreur
+    echo '<div class="alert alert-danger" role="alert">' . $_SESSION['error_message'] . '</div>';
+    // Supprimer le message
+    unset($_SESSION['error_message']);
+}
 ?>
 
 <div class="row justify-content-center">
