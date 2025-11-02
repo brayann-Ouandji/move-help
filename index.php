@@ -4,6 +4,7 @@ $titre_page = "Accueil";
 
 // Inclusion de l'en-tête
 include 'includes/header.php';
+include 'database.php';
 ?>
 
 <div class="container-fluid bg-light p-5 mb-5">
@@ -49,54 +50,62 @@ include 'includes/header.php';
   <section class="recent-listings my-5 py-5 bg-light rounded">
     <h2 class="text-center display-5 mb-5">Déménagements récents</h2>
     <div class="row justify-content-center">
-      <?php
-      // SIMULATION de données (MISES A JOUR avec vos maquettes)
-      $annonces_recentes = array(
-        array(
-          'titre' => 'Déménagement F3 avec meubles', 
-          'trajet' => 'Paris 15ème → Versailles', 
-          'volume' => '25 m³', 
-          'nb_demenageurs' => '2 déménageurs recherchés',
-          'date' => '15 Novembre 2025',
-          'image' => 'principale.jpg'
-        ),
-        array(
-          'titre' => 'STUDIO ETUDIANT SANS ASCENSEUR', 
-          'trajet' => 'Lyon 3ème → Villeurbanne', 
-          'volume' => '12 m³', 
-          'nb_demenageurs' => '1 déménageur recherché',
-          'date' => '18 Novembre 2025',
-          'image' => 'principale1.jpg'
-        ),
-        array(
-          'titre' => 'MAISON DE 4 CHAMBRE AVEC GARAGE', 
-          'trajet' => 'Marseille → Aix-en-Provence', 
-          'volume' => '45 m³', 
-          'nb_demenageurs' => '3 déménageurs recherchés',
-          'date' => '30 Novembre 2025',
-          'image' => 'principale2.jpg'
-        ),
-      );
+     <?php
+      
+      // On récupère aussi 1 photo par annonce (la première)
+      $sql = "SELECT
+                a.titre,
+                a.ville_depart,
+                a.ville_arrivee,
+                a.volume_m3,
+                a.nb_demenageur_souhaites,
+                a.date_demenagement,
+                (SELECT p.nom_fichier FROM PHOTO_ANNONCE p WHERE p.id_annonce = a.id_annonce ORDER BY p.ordre ASC LIMIT 1) as photo_principale
+              FROM ANNONCE a
+              WHERE a.statut = 'publiee'
+              ORDER BY a.date_creation DESC
+              LIMIT 3";
 
-      foreach ($annonces_recentes as $annonce) {
-        echo '<div class="col-md-4 mb-3">';
-        echo '  <div class="card h-100">'; // h-100 pour que les cartes aient la même hauteur
-        echo '   <img src="image/' . $annonce['image'] . '" class="card-img-top" alt="' .$annonce['titre']. '">'; // <img src="image/principale1.jpg" class="card-img-top" alt="Image déménagement">';
-        echo '    <div class="card-body d-flex flex-column">';
-        echo '      <h5 class="card-title fw-bold">' . $annonce['titre'] . '</h5>';
-        echo '      <h6 class="card-subtitle mb-2 text-muted">' . $annonce['trajet'] . '</h6>';
-        echo '      <p class="card-text mb-1">Volume : ' . $annonce['volume'] . '</p>';
-        echo '      <p class="card-text">' . $annonce['nb_demenageurs'] . '</p>';
+     
+      $resultat = $mysqli->query($sql);
+
+      // 3. Vérifier s'il y a des résultats
+      if ($resultat && $resultat->num_rows > 0) {
         
-        // La date (sera stylisée en orange via CSS)
-        // mt-auto pousse la date en bas de la carte
-        echo '      <div class="mt-auto text-center">';
-        echo '        <span class="date-badge">' . $annonce['date'] . '</span>';
-        echo '      </div>';
-        
-        echo '    </div>';
-        echo '  </div>';
-        echo '</div>';
+      
+          while ($annonce = $resultat->fetch_assoc()) {
+            
+            
+            $date_obj = new DateTime($annonce['date_demenagement']);
+            $date_formatee = $date_obj->format('d M Y'); // Ex: 15 Nov 2025
+
+            // Définir une image par défaut si aucune n'est trouvée
+            $image_path = 'image/default_annonce.jpg'; 
+            if (!empty($annonce['photo_principale'])) {
+                // Plus tard, on stockera le chemin complet dans la BDD
+                
+                $image_path = 'image/' . $annonce['photo_principale'];
+            }
+
+            
+            echo '<div class="col-md-4 mb-3">';
+            echo '  <div class="card h-100">';
+            echo '    <img src="' . $image_path . '" class="card-img-top" alt="' . $annonce['titre'] . '">';
+            echo '    <div class="card-body d-flex flex-column">';
+            echo '      <h5 class="card-title fw-bold">' . $annonce['titre'] . '</h5>';
+            echo '      <h6 class="card-subtitle mb-2 text-muted">' . $annonce['ville_depart'] . ' → ' . $annonce['ville_arrivee']. '</h6>';
+            echo '      <p class="card-text mb-1">Volume : ' . $annonce['volume_m3'] . ' m³</p>';
+            echo '      <p class="card-text">' . $annonce['nb_demenageur_souhaites'] . ' déménageur(s) recherché(s)</p>';
+            echo '      <div class="mt-auto text-center">';
+            echo '        <span class="date-badge">' . $date_formatee . '</span>';
+            echo '      </div>';
+            echo '    </div>';
+            echo '  </div>';
+            echo '</div>';
+          }
+      } else {
+          
+          echo '<div class="col-12"><p class="text-center text-muted">Aucune annonce récente disponible pour le moment.</p></div>';
       }
       ?>
     </div>

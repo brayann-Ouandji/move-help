@@ -21,5 +21,5 @@ if (!$mysqli->set_charset("utf8")) {
     exit();
 }
 
-.
+
 ?>
