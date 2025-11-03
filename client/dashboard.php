@@ -1,6 +1,44 @@
 <?php
 $titre_page = "Tableau de bord";
 include 'includes/header_client.php';
+require_once __DIR__ . '/../includes/database.php';
+// On récupère l'ID du client connecté (stocké dans la session lors de la connexion)
+// Note: $user_id_connecte est déjà défini dans check_session.php, mais on
+// va chercher l'ID CLIENT spécifique (qui est différent de l'ID UTILISATEUR)
+$id_utilisateur=$SESSION['user_id'];
+$sql_client = "SELECT id_client FROM CLIENT WHERE id_utilisateur = ?";
+$stmt_client = $mysqli->prepare($sql_client);
+$stmt_client->bind_param('i', $id_utilisateur);
+$stmt_client->execute();
+$result_client = $stmt_client->get_result();
+$client_data = $result_client->fetch_assoc();
+$id_client_connecte = $client_data['id_client'];
+
+// Annonces Actives (statut 'publiee' ou 'acceptee')
+$sql_actives = "SELECT COUNT(*) as total FROM ANNONCE WHERE id_client = ? AND statut IN ('publiee', 'acceptee')";
+$stmt_actives = $mysqli->prepare($sql_actives);
+$stmt_actives->bind_param('i', $id_client_connecte);
+$stmt_actives->execute();
+$count_actives = $stmt_actives->get_result()->fetch_assoc()['total'];
+
+//Propositions reçues (sur les annonces 'publiees' du client)
+$sql_props = "SELECT COUNT(p.id_proposition) as total 
+              FROM PROPOSITION p
+              JOIN ANNONCE a ON p.id_annonce = a.id_annonce
+              WHERE a.id_client = ? AND a.statut = 'publiee'";
+$stmt_props = $mysqli->prepare($sql_props);
+$stmt_props->bind_param('i', $id_client_connecte);
+$stmt_props->execute();
+$count_props = $stmt_props->get_result()->fetch_assoc()['total'];
+
+//Missions Terminées
+$sql_terminees = "SELECT COUNT(*) as total FROM ANNONCE WHERE id_client = ? AND statut = 'terminee'";
+$stmt_terminees = $mysqli->prepare($sql_terminees);
+$stmt_terminees->bind_param('i', $id_client_connecte);
+$stmt_terminees->execute();
+$count_terminees = $stmt_terminees->get_result()->fetch_assoc()['total'];
+
+
 ?>
 
 <h1 class="mb-4">Bienvenue, <?php echo $_SESSION['user_prenom'] . ' ' . $_SESSION['user_nom']; ?> !</h1>
@@ -10,21 +48,21 @@ include 'includes/header_client.php';
         <div class="card text-center text-bg-primary mb-3">
             <div class="card-body">
                 <h5 class="card-title">Annonces Actives</h5>
-                <p class="card-text fs-3 fw-bold">2</p> </div>
+                <p class="card-text fs-3 fw-bold"><?php echo $count_actives;?></p> </div>
         </div>
     </div>
     <div class="col-md-4">
         <div class="card text-center text-bg-success mb-3">
             <div class="card-body">
                 <h5 class="card-title">Propositions Reçues</h5>
-                <p class="card-text fs-3 fw-bold">5</p> </div>
+                <p class="card-text fs-3 fw-bold"><?php echo $count_props;?></p> </div>
         </div>
     </div>
     <div class="col-md-4">
         <div class="card text-center text-bg-info mb-3">
             <div class="card-body">
                 <h5 class="card-title">Missions Terminées</h5>
-                <p class="card-text fs-3 fw-bold">1</p> </div>
+                <p class="card-text fs-3 fw-bold"><?php echo $count_terminees;?></p> </div>
         </div>
     </div>
 </div>
