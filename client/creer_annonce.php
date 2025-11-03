@@ -1,6 +1,13 @@
 <?php
 $titre_page = "Créer une annonce";
 include 'includes/header_client.php';
+
+
+if (isset($_SESSION['error_message'])) {
+    echo '<div class="alert alert-danger" role="alert">' . $_SESSION['error_message'] . '</div>';
+    unset($_SESSION['error_message']);
+}
+
 ?>
 
 <h1>Publier une nouvelle annonce</h1>
