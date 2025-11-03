@@ -75,21 +75,63 @@ $count_terminees = $stmt_terminees->get_result()->fetch_assoc()['total'];
         <p class="card-text">Voici un aperçu de vos dernières demandes de déménagement.</p>
         
         <ul class="list-group">
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                Déménagement F3 Paris -> Lyon
-                <span class="badge bg-warning">En attente (3 propositions)</span>
-                <a href="annonce_detail.php?id=1" class="btn btn-sm btn-outline-primary">Voir</a>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                Transport Piano Rouen
-                <span class="badge bg-success">Acceptée (1 déménageur)</span>
-                <a href="annonce_detail.php?id=2" class="btn btn-sm btn-outline-primary">Voir</a>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                Studio Étudiant
-                <span class="badge bg-secondary">Terminée</span>
-                <a href="annonce_detail.php?id=3" class="btn btn-sm btn-outline-primary">Voir</a>
-            </li>
+          <?php 
+                      // (On récupère les 5 dernières annonces, tous statuts confondus)
+                      $sql_list = "SELECT id_annonce, titre, statut, 
+                         (SELECT COUNT(*) FROM PROPOSITION p WHERE p.id_annonce = a.id_annonce) as nb_props
+                         FROM ANNONCE a
+                         WHERE id_client = ?
+                         ORDER BY date_creation DESC
+                         LIMIT 5";
+            
+            $stmt_list = $mysqli->prepare($sql_list);
+            $stmt_list->bind_param('i', $id_client_connecte);
+            $stmt_list->execute();
+            $result_list = $stmt_list->get_result();
+
+            if ($result_list->num_rows > 0) {
+                while ($annonce = $result_list->fetch_assoc()) {
+                    
+                    // Définir le style du badge en fonction du statut
+                    $badge_class = 'bg-secondary';
+                    $badge_text = ucfirst($annonce['statut']); // Met la première lettre en majuscule
+
+                    if ($annonce['statut'] == 'publiee') {
+                        $badge_class = 'bg-warning';
+                        $badge_text = 'En attente (' . $annonce['nb_props'] . ' prop.)';
+                    } elseif ($annonce['statut'] == 'acceptee') {
+                        $badge_class = 'bg-success';
+                        $badge_text = 'Acceptée';
+                    } elseif ($annonce['statut'] == 'terminee') {
+                        $badge_class = 'bg-secondary';
+                        $badge_text = 'Terminée';
+                    }
+
+                    // Afficher l'élément de liste
+                    echo '<li class="list-group-item d-flex justify-content-between align-items-center">';
+                    echo htmlspecialchars($annonce['titre']);
+                    echo '<span class="badge ' . $badge_class . '">' . $badge_text . '</span>';
+                    
+                    // On crée un lien vers une page qui n'existe pas encore
+                    echo '<a href="detail_annonce.php?id=' . $annonce['id_annonce'] . '" class="btn btn-sm btn-outline-primary">Voir</a>';
+                    
+                    // Pour l'instant, on lie vers mes-annonces.php
+                   // echo '<a href="mes-annonces.php" class="btn btn-sm btn-outline-primary">Gérer</a>';
+                    
+                    echo '</li>';
+                }
+            } else {
+                echo '<li class="list-group-item text-muted">Vous n\'avez pas encore créé d\'annonce.</li>';
+            }
+            
+            // Fermer les statements et la connexion
+            $stmt_actives->close();
+            $stmt_props->close();
+            $stmt_terminees->close();
+            $stmt_list->close();
+            $mysqli->close();
+            ?>
+
         </ul>
         
         <div class="text-center mt-3">
