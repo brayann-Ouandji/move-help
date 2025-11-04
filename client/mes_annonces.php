@@ -73,7 +73,7 @@ if (isset($_SESSION['success_message'])) {
             }
 
             // Afficher l'élément de liste (maintenant cliquable vers la page de détail)
-            // Nous créons le lien vers 'detail_annoncephp' 
+            // lien vers 'detail_annoncephp' 
             echo '<a href="detail_annonce.php?id=' . $annonce['id_annonce'] . '" class="list-group-item list-group-item-action">';
             echo '  <div class="d-flex w-100 justify-content-between">';
             echo '    <h5 class="mb-1">' . $annonce['titre'] . '</h5>';

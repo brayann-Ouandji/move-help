@@ -1,4 +1,4 @@
-<?phps
+<?php
 session_start();
 require_once __DIR__ . '/../includes/db.php';
 
@@ -64,7 +64,7 @@ try {
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'publiee')";
     
     $stmt_annonce = $mysqli->prepare($sql_annonce);
-    $stmt_annonce->bind_param('isssssisiisisiidi',
+    $stmt_annonce->bind_param('issssssiisssiidi',
         $id_client_connecte, $titre, $description, $date_demenagement,
         $ville_depart, $cp_depart, $type_logement_depart, $etage_depart, $ascenseur_depart,
         $ville_arrivee, $cp_arrivee, $type_logement_arrivee, $etage_arrivee, $ascenseur_arrivee,
@@ -118,7 +118,7 @@ $upload_dir = __DIR__ . '/../uploads/';
     $mysqli->commit();
     
     $_SESSION['success_message'] = "Votre annonce a été publiée avec succès !";
-    header('Location: ../client/mes-annonces.php');
+    header('Location: ../client/mes_annonces.php');
     exit;
 
 } catch (mysqli_sql_exception $exception) {
@@ -126,7 +126,7 @@ $upload_dir = __DIR__ . '/../uploads/';
     $mysqli->rollback();
     
     $_SESSION['error_message'] = "Erreur lors de la création de l'annonce : " . $exception->getMessage();
-    header('Location: ../client/creer-annonce.php');
+    header('Location: ../client/creer_annonce.php');
     exit;
 }
 

@@ -23,7 +23,7 @@ $mysqli->close(); // On ferme la connexion, on n'en a plus besoin pour l'afficha
 $photo_path = '../image/default_profil.png'; // Image par défaut
 if (!empty($client_info['photo_profil']) && $client_info['photo_profil'] != 'default_profil.png') {
     
-    $photo_path = '../uploads/profil/' . $client_info['photo_profil'];
+    $photo_path = '../' . $client_info['photo_profil'];
 }
 
 ?>
@@ -48,7 +48,7 @@ if (isset($_SESSION['error_message'])) {
                 <h5>Mes informations personnelles</h5>
             </div>
             <div class="card-body">
-                <form action="../actions/traitement_profil_client.php" method="POST"> //fichier traitement_profil_client.phpà créer
+                <form action="../actions/traitement_profil_client.php" method="POST">
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="nom" class="form-label">Nom</label>
@@ -91,7 +91,7 @@ if (isset($_SESSION['error_message'])) {
                 <h5>Changer mon mot de passe</h5>
             </div>
             <div class="card-body">
-                <form action="../actions/traitement_change_mdp.php" method="POST">//fiçchier traitement_change_mdp.php à créer
+                <form action="../actions/traitement_change_mdp.php" method="POST">
                     <div class="mb-3">
                         <label for="old_pass" class="form-label">Mot de passe actuel</label>
                         <input type="password" class="form-control" id="old_pass" name="old_pass" required>
@@ -118,7 +118,7 @@ if (isset($_SESSION['error_message'])) {
             <div class="card-body text-center">
                 <img src="<?php echo $photo_path; ?>" class="img-fluid rounded-circle mb-3" alt="Photo de profil" style="width: 200px; height: 200px; object-fit: cover;">
                 
-                <form action="../actions/traitement_upload_photo.php" method="POST" enctype="multipart/form-data">//fichier traitement_upload_photo.php à créer
+                <form action="../actions/traitement_upload_photo.php" method="POST" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="photo_profil" class="form-label">Changer de photo</label>
                         <input class="form-control" type="file" id="photo_profil" name="photo_profil" accept="image/jpeg, image/png">

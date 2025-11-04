@@ -2,10 +2,9 @@
 $titre_page = "Tableau de bord";
 include 'includes/header_client.php';
 require_once __DIR__ . '/../includes/db.php';
-// On récupère l'ID du client connecté (stocké dans la session lors de la connexion)
-// Note: $user_id_connecte est déjà défini dans check_session.php, mais on
-// va chercher l'ID CLIENT spécifique (qui est différent de l'ID UTILISATEUR)
-$id_utilisateur=$SESSION['user_id'];
+
+
+$id_utilisateur=$_SESSION['user_id'];
 $sql_client = "SELECT id_client FROM CLIENT WHERE id_utilisateur = ?";
 $stmt_client = $mysqli->prepare($sql_client);
 $stmt_client->bind_param('i', $id_utilisateur);

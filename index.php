@@ -1,7 +1,7 @@
 <?php
 // Définition du titre de la page
 $titre_page = "Accueil";
-
+// session_start();
 // Inclusion de l'en-tête
 include 'includes/header.php';
 include 'includes/db.php';

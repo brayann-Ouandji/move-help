@@ -3,9 +3,7 @@
 // session_start();
 // On inclut les paramètres
 require_once __DIR__ . '/../config.php';
-//echo "PHP voit ce nom de BDD : '" . $dbname . "'";
-//die(); // On arrête le script ici
-// Création de l'objet de connexion mysqli
+
 $mysqli = new mysqli($host, $login, $password, $dbname);
 
 // Vérification de la connexion

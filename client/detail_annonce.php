@@ -12,7 +12,7 @@ $client_data = $result_client->fetch_assoc();
 $id_client_connecte = $client_data['id_client'];
 $stmt_client->close();
 
-// 1.2. Vérifier que l'ID de l'annonce est présent dans l'URL
+//  Vérifier que l'ID de l'annonce est présent dans l'URL
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     echo '<div class="alert alert-danger">Aucune annonce spécifiée.</div>';
     include 'includes/footer_client.php';
@@ -78,8 +78,8 @@ if (isset($_SESSION['error_message'])) {
 <div class="d-flex justify-content-between align-items-center mb-3">
     <h1>Détail : <?php echo $annonce['titre']; ?></h1>
     <div>
-        <a href="#" class="btn btn-outline-primary"><i class="bi bi-pencil"></i> Modifier</a>
-        <a href="#" class="btn btn-outline-danger" onclick="return confirm('Vraiment supprimer ?');"><i class="bi bi-trash"></i> Supprimer</a>
+        <a href="modifier_annonces.php?id=<?php echo $id_annonce; ?>" class="btn btn-outline-primary"><i class="bi bi-pencil"></i> Modifier</a>
+        <a href="../actions/traitement_supprimer_annonce.php?id=<?php echo $id_annonce; ?>" class="btn btn-outline-danger" onclick="return confirm('Vraiment supprimer ?');"><i class="bi bi-trash"></i> Supprimer</a>
     </div>
 </div>
 
