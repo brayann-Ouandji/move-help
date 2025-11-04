@@ -1,7 +1,7 @@
 <?php
 $titre_page = "Mon Profil";
 include 'includes/header_client.php';
-require_once '/../includes/database.php';
+require_once __DIR__ . '/../includes/db.php';
 
 $id_utilisateur_connecte = $_SESSION['user_id'];
 

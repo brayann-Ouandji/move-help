@@ -1,7 +1,7 @@
 <?php
 $titre_page = "Tableau de bord";
 include 'includes/header_client.php';
-require_once __DIR__ . '/../includes/database.php';
+require_once __DIR__ . '/../includes/db.php';
 // On récupère l'ID du client connecté (stocké dans la session lors de la connexion)
 // Note: $user_id_connecte est déjà défini dans check_session.php, mais on
 // va chercher l'ID CLIENT spécifique (qui est différent de l'ID UTILISATEUR)

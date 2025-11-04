@@ -1,5 +1,6 @@
-<?phpsession_start();
-require_once__DIR__ . '/../includes/database.php';
+<?phps
+session_start();
+require_once __DIR__ . '/../includes/db.php';
 
 if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] != 'client') {
     $_SESSION['error_message'] = "Vous devez être connecté en tant que client pour poster une annonce.";

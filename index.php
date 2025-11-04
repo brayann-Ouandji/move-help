@@ -4,7 +4,8 @@ $titre_page = "Accueil";
 
 // Inclusion de l'en-tête
 include 'includes/header.php';
-include 'database.php';
+include 'includes/db.php';
+
 ?>
 
 <div class="container-fluid bg-light p-5 mb-5">
@@ -69,7 +70,7 @@ include 'database.php';
      
       $resultat = $mysqli->query($sql);
 
-      // 3. Vérifier s'il y a des résultats
+      // Vérifier s'il y a des résultats
       if ($resultat && $resultat->num_rows > 0) {
         
       

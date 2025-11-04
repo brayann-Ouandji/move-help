@@ -1,5 +1,7 @@
 <?php
-// session_start(); // On le mettra ici quand on gérera la connexion
+session_start();
+
+
 ?>
 <!doctype html>
 <html lang="fr">

@@ -2,7 +2,7 @@
 
 
 session_start();
-require_once __DIR__ . '/../includes/database.php';
+require_once __DIR__ . '/../includes/db.php';
 
 //  SÉCURITÉ
 if (!isset($_SESSION['user_id'])) {

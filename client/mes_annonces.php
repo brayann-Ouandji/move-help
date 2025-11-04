@@ -1,12 +1,12 @@
 <?php
 $titre_page = "Mes annonces";
 include 'includes/header_client.php';
-require_once __DIR__ . '/../includes/database.php';
+require_once __DIR__ . '/../includes/db.php';
 
 if (isset($_SESSION['success_message'])) {
     echo '<div class="alert alert-success" role="alert">' . $_SESSION['success_message'] . '</div>';
     unset($_SESSION['success_message']);
-
+}
 ?>
 
 <div class="d-flex justify-content-between align-items-center mb-3">

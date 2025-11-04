@@ -1,7 +1,7 @@
 <?php
 $titre_page = "Inscription Client";
 include 'includes/header.php';
-session_start();
+// session_start();
 
 if (isset($_SESSION['error_message'])) {
     // Afficher le message d'erreur dans une alerte Bootstrap
