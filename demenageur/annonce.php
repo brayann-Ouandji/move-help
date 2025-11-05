@@ -1,4 +1,5 @@
 <?php
+
 $titre_page = "Trouver des annonces";
 include 'includes/header_demenageur.php';
 ?>

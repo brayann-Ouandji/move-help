@@ -1,4 +1,5 @@
 <?php
+
 $titre_page = "Dashboard Admin";
 include 'includes/header_admin.php';
 ?>

@@ -1,4 +1,5 @@
 <?php
+
 $titre_page = "Créer une annonce";
 include 'includes/header_client.php';
 

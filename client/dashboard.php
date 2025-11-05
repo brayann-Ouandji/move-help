@@ -1,4 +1,5 @@
 <?php
+
 $titre_page = "Tableau de bord";
 include 'includes/header_client.php';
 require_once __DIR__ . '/../includes/db.php';

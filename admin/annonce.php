@@ -1,4 +1,5 @@
 <?php
+
 $titre_page = "Gestion des annonces";
 include 'includes/header_admin.php';
 

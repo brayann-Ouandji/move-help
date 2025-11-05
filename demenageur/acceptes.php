@@ -1,4 +1,5 @@
 <?php
+
 $titre_page = "missions acceptées";
 include 'includes/header_demenageur.php';
 ?>
@@ -19,7 +20,7 @@ include 'includes/header_demenageur.php';
             <div class="col-md-4 border-start">
                 <h5>Contact Client</h5>
                 <p>
-                    <i class="bi bi-person-fill"></i> Mme SIKADI
+                    <i class="bi bi-person-fill"></i> Mr SIKADI
                 </p>
                 <p>
                     <i class="bi bi-telephone-fill"></i> 

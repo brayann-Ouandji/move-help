@@ -1,4 +1,5 @@
 <?php
+
 $titre_page = "Modifier l'annonce";
 include 'includes/header_client.php'; // Inclut check_session.php
 require_once __DIR__ . '/../includes/db.php'; // Connexion BDD

@@ -1,4 +1,5 @@
 <?php
+
 $titre_page = "Mes annonces";
 include 'includes/header_client.php';
 require_once __DIR__ . '/../includes/db.php';

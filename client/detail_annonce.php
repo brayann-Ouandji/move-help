@@ -1,4 +1,5 @@
 <?php
+
 $titre_page = "Détail de l'annonce";
 include 'includes/header_client.php'; 
 require_once __DIR__ . '/../includes/db.php'; // Connexion BDD
