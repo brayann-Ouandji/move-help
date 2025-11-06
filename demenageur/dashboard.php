@@ -56,21 +56,21 @@ $count_avenir = $stmt_avenir->get_result()->fetch_assoc()['total'];
         <div class="card text-center text-bg-primary mb-3">
             <div class="card-body">
                 <h5 class="card-title">proposition envoyées</h5>
-                <p class="card-text fs-3 fw-bold">2</p> </div>
+                <p class="card-text fs-3 fw-bold"><?php echo $count_envoyees;?></p> </div>
         </div>
     </div>
     <div class="col-md-4">
         <div class="card text-center text-bg-success mb-3">
             <div class="card-body">
                 <h5 class="card-title">missions acceptées</h5>
-                <p class="card-text fs-3 fw-bold">5</p> </div>
+                <p class="card-text fs-3 fw-bold"><?php echo $count_acceptees;?></p> </div>
         </div>
     </div>
     <div class="col-md-4">
         <div class="card text-center text-bg-info mb-3">
             <div class="card-body">
                 <h5 class="card-title">note moyennes</h5>
-                <p class="card-text fs-3 fw-bold">6/10</p> </div>
+                <p class="card-text fs-3 fw-bold"><?php echo $note_moyenne;?></p> </div>
         </div>
     </div>
 </div>
@@ -78,7 +78,7 @@ $count_avenir = $stmt_avenir->get_result()->fetch_assoc()['total'];
         <div class="card text-center text-bg-info mb-3">
             <div class="card-body">
                 <h5 class="card-title">Missions a venir</h5>
-                <p class="card-text fs-3 fw-bold">1</p> </div>
+                <p class="card-text fs-3 fw-bold"><?php echo $count_avenir;?></p> </div>
         </div>
     </div>
 </div>
