@@ -3,16 +3,7 @@
 session_start();
 
 
-// ---- POUR Les TESTS ----
-// On simule une session utilisateur connectée
 
-
-$_SESSION['user_id'] = 2;         // ID demenageur simulé
-$_SESSION['user_role'] = 'demenageur';  // Rôle demenageur simulé
-$_SESSION['user_prenom'] = 'irving'; // Prénom simulé
-$_SESSION['user_nom'] = 'SIKADI';   // Nom simulé
-
-// -------------------------
 
 
 // VERIFICATION DE SECURITE ---
