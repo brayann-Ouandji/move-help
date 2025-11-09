@@ -77,10 +77,31 @@ if (isset($_SESSION['error_message'])) {
 ?>
 
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <h1>Détail : <?php echo $annonce['titre']; ?></h1>
+    <h1>Détail : <?php echo ($annonce['titre']); ?></h1>
     <div>
-        <a href="modifier_annonces.php?id=<?php echo $id_annonce; ?>" class="btn btn-outline-primary"><i class="bi bi-pencil"></i> Modifier</a>
-        <a href="../actions/traitement_supprimer_annonce.php?id=<?php echo $id_annonce; ?>" class="btn btn-outline-danger" onclick="return confirm('Vraiment supprimer ?');"><i class="bi bi-trash"></i> Supprimer</a>
+        <?php
+        // On affiche les boutons en fonction du statut de l'annonce
+        
+        if ($annonce['statut'] == 'publiee'):
+            // Si l'annonce est 'publiée', on peut la modifier ou la supprimer
+        ?>
+            <a href="modifier-annonce.php?id=<?php echo $id_annonce; ?>" class="btn btn-outline-primary"><i class="bi bi-pencil"></i> Modifier</a>
+            <a href="../actions/traitement_supprimer_annonce.php?id=<?php echo $id_annonce; ?>" class="btn btn-outline-danger" onclick="return confirm('Voulez-vous vraiment supprimer cette annonce ?');">
+                <i class="bi bi-trash"></i> Supprimer
+            </a>
+
+        <?php elseif ($annonce['statut'] == 'acceptee'): 
+            // Si elle est 'acceptée', on ne peut plus la modifier/supprimer
+        ?>
+             <span class="badge bg-success fs-6">Déménagement confirmé</span>
+
+        <?php elseif ($annonce['statut'] == 'terminee'): 
+            // Si elle est 'terminée', on affiche le bouton pour Évaluer
+        ?>
+            <a href="evaluer.php?id=<?php echo $id_annonce; ?>" class="btn btn-warning">
+                <i class="bi bi-star-fill"></i> Évaluer les déménageurs
+            </a>
+        <?php endif; ?>
     </div>
 </div>
 
