@@ -1,5 +1,5 @@
 <?php
-// On inclut le script de sécurité
+
 include 'check_session.php';
 ?>
 <!doctype html>

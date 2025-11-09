@@ -2,18 +2,21 @@
 
 $titre_page = "Gestion des utilisateurs";
 include 'includes/header_admin.php';
+require_once __DIR__ . '/../includes/db.php';
 
-// Données simulées
-$utilisateurs = [
-    ['id' => 1, 'nom' => 'OUANDJI Brayann', 'email' => 'brayann.o@exemple.com', 'role' => 'client', 'statut' => 'Actif'],
-    ['id' => 2, 'nom' => 'SIKADI Irving', 'email' => 'irving.s@exemple.com', 'role' => 'demenageur', 'statut' => 'Actif'],
-    ['id' => 3, 'nom' => 'Admin User', 'email' => 'admin@move-help.fr', 'role' => 'admin', 'statut' => 'Actif'],
-    ['id' => 4, 'nom' => 'User Spam', 'email' => 'spam@bot.com', 'role' => 'client', 'statut' => 'Désactivé'],
-];
+$sql = "SELECT id_utilisateur, nom, prenom, email, role, statut
+        FROM UTILISATEUR
+        ORDER BY date_inscription DESC";
+$result = $mysqli->query($sql);
 ?>
 
 <h1 class="mb-4">Gestion des utilisateurs</h1>
-
+<?php
+if (isset($_SESSION['success_message'])) {
+    echo '<div class="alert alert-success">' . ($_SESSION['success_message']) . '</div>';
+    unset($_SESSION['success_message']);
+}
+?>
 <div class="card mb-3">
     <div class="card-body">
         <form class="row g-3">
@@ -49,50 +52,64 @@ $utilisateurs = [
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($utilisateurs as $user): ?>
+                <?php
+                if ($result && $result->num_rows > 0) {
+                    while ($user = $result->fetch_assoc()) {
+                        
+                        // Badge Rôle
+                        $role_badge = 'bg-secondary';
+                        if ($user['role'] == 'client') $role_badge = 'bg-primary';
+                        if ($user['role'] == 'demenageur') $role_badge = 'bg-info';
+                        if ($user['role'] == 'admin') $role_badge = 'bg-danger';
+
+                        // Badge Statut
+                        $statut_badge = $user['statut'] == 'actif' ? 'bg-success' : 'bg-secondary';
+                ?>
                 <tr>
-                    <td><?php echo $user['id']; ?></td>
-                    <td><?php echo $user['nom']; ?></td>
-                    <td><?php echo $user['email']; ?></td>
+                    <td><?php echo $user['id_utilisateur']; ?></td>
+                    <td><?php echo ($user['prenom'] . ' ' . $user['nom']); ?></td>
+                    <td><?php echo ($user['email']); ?></td>
                     <td>
-                        <span class="badge 
-                            <?php if($user['role'] == 'client') echo 'bg-primary';
-                                  elseif($user['role'] == 'demenageur') echo 'bg-info';
-                                  else echo 'bg-danger'; ?>">
+                        <span class="badge <?php echo $role_badge; ?>">
                             <?php echo $user['role']; ?>
                         </span>
                     </td>
                     <td>
-                        <span class="badge <?php echo $user['statut'] == 'Actif' ? 'bg-success' : 'bg-secondary'; ?>">
+                        <span class="badge <?php echo $statut_badge; ?>">
                             <?php echo $user['statut']; ?>
                         </span>
                     </td>
                     <td>
                         <?php if ($user['role'] != 'admin'): ?>
                             
-                            <?php if ($user['statut'] == 'Actif'): ?>
-                            <a href="#" class="btn btn-sm btn-warning" title="Désactiver le compte">
+                            <?php if ($user['statut'] == 'actif'): ?>
+                            <a href="../actions/traitement_admin_utilisateurs.php?id=<?php echo $user['id_utilisateur']; ?>&action=desactive" 
+                               class="btn btn-sm btn-warning" title="Désactiver le compte">
                                 <i class="bi bi-person-x-fill"></i> Désactiver
                             </a>
                             <?php else: ?>
-                            <a href="#" class="btn btn-sm btn-success" title="Activer le compte">
+                            <a href="../actions/traitement_admin_utilisateurs.php?id=<?php echo $user['id_utilisateur']; ?>&action=actif" 
+                               class="btn btn-sm btn-success" title="Activer le compte">
                                 <i class="bi bi-person-check-fill"></i> Activer
                             </a>
                             <?php endif; ?>
-
-                            <a href="#" class="btn btn-sm btn-danger" title="Supprimer le compte"
-                               onclick="return confirm('Voulez-vous vraiment SUPPRIMER cet utilisateur ?');">
-                                <i class="bi bi-trash-fill"></i>
-                            </a>
+                            
                         <?php endif; ?>
                     </td>
                 </tr>
-                <?php endforeach; ?>
+                <?php
+                    } // Fin du while
+                } else {
+                    echo '<tr><td colspan="6" class="text-center">Aucun utilisateur trouvé.</td></tr>';
+                }
+                ?>
             </tbody>
         </table>
     </div>
 </div>
 
 <?php
+$result->close();
+$mysqli->close();
 include 'includes/footer_admin.php';
 ?>

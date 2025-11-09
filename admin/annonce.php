@@ -2,14 +2,16 @@
 
 $titre_page = "Gestion des annonces";
 include 'includes/header_admin.php';
+require_once __DIR__ . '/../includes/db.php';
 
-// Données simulées
-$annonces = [
-    ['id' => 1, 'titre' => 'Déménagement F3 Paris -> Lyon', 'client' => 'Brayann O.', 'date' => '30/11/2025', 'statut' => 'Publiée'],
-    ['id' => 2, 'titre' => 'Transport Piano Rouen', 'client' => 'Mme Durand', 'date' => '02/12/2025', 'statut' => 'Acceptée'],
-    ['id' => 3, 'titre' => 'Studio Étudiant', 'client' => 'Mr Martin', 'date' => '20/10/2025', 'statut' => 'Terminée'],
-    ['id' => 68, 'titre' => 'Transport suspect', 'client' => 'User Spam', 'date' => '01/12/2025', 'statut' => 'Publiée (Signalée)'],
-];
+$sql = "SELECT 
+            a.id_annonce, a.titre, a.date_demenagement, a.statut,
+            u.nom, u.prenom
+        FROM ANNONCE a
+        JOIN CLIENT c ON a.id_client = c.id_client
+        JOIN UTILISATEUR u ON c.id_utilisateur = u.id_utilisateur
+        ORDER BY a.date_creation DESC";
+$result = $mysqli->query($sql);
 ?>
 
 <h1 class="mb-4">Gestion des annonces</h1>
@@ -49,37 +51,49 @@ $annonces = [
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($annonces as $annonce): ?>
+                <?php
+                if ($result && $result->num_rows > 0) {
+                    while ($annonce = $result->fetch_assoc()) {
+                        $date_obj = new DateTime($annonce['date_demenagement']);
+                        $date_formatee = $date_obj->format('d/m/Y');
+
+                        // Badge pour le statut
+                        $badge_class = 'bg-secondary';
+                        if ($annonce['statut'] == 'publiee') $badge_class = 'bg-warning';
+                        if ($annonce['statut'] == 'acceptee') $badge_class = 'bg-success';
+                        if ($annonce['statut'] == 'terminee') $badge_class = 'bg-secondary';
+                ?>
                 <tr>
-                    <td><?php echo $annonce['id']; ?></td>
-                    <td><?php echo $annonce['titre']; ?></td>
-                    <td><?php echo $annonce['client']; ?></td>
-                    <td><?php echo $annonce['date']; ?></td>
+                    <td><?php echo $annonce['id_annonce']; ?></td>
+                    <td><?php echo htmlspecialchars($annonce['titre']); ?></td>
+                    <td><?php echo htmlspecialchars($annonce['prenom'] . ' ' . $annonce['nom']); ?></td>
+                    <td><?php echo $date_formatee; ?></td>
                     <td>
-                        <span class="badge 
-                            <?php if($annonce['statut'] == 'Publiée') echo 'bg-warning';
-                                  elseif($annonce['statut'] == 'Acceptée') echo 'bg-success';
-                                  elseif($annonce['statut'] == 'Terminée') echo 'bg-secondary';
-                                  else echo 'bg-danger'; ?>">
-                            <?php echo $annonce['statut']; ?>
+                        <span class="badge <?php echo $badge_class; ?>">
+                            <?php echo ucfirst($annonce['statut']); ?>
                         </span>
                     </td>
                     <td>
-                        <a href="#" class="btn btn-sm btn-info" title="Voir l'annonce">
-                            <i class="bi bi-eye-fill"></i>
-                        </a>
-                        <a href="#" class="btn btn-sm btn-danger" title="Supprimer l'annonce" 
+                        <a href="../actions/traitement_admin_supprimer_annonce.php?id=<?php echo $annonce['id_annonce']; ?>" 
+                           class="btn btn-sm btn-danger" title="Supprimer l'annonce" 
                            onclick="return confirm('Voulez-vous vraiment supprimer cette annonce ?');">
                             <i class="bi bi-trash-fill"></i>
                         </a>
                     </td>
                 </tr>
-                <?php endforeach; ?>
+                <?php
+                    } // Fin du while
+                } else {
+                    echo '<tr><td colspan="6" class="text-center">Aucune annonce trouvée.</td></tr>';
+                }
+                ?>
             </tbody>
         </table>
     </div>
 </div>
 
 <?php
+$result->close();
+$mysqli->close();
 include 'includes/footer_admin.php';
 ?>

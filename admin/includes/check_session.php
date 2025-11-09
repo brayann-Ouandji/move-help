@@ -3,17 +3,6 @@
 session_start();
 
 
-// ---- POUR TESTS ----
-
-// une connexion d'ADMINISTRATEUR.
-
-$_SESSION['user_id'] = 3; // ID admin simulé
-$_SESSION['user_role'] = 'admin'; // Rôle admin simulé
-$_SESSION['user_prenom'] = 'Admin'; // Prénom simulé
-$_SESSION['user_nom'] = 'User';   // Nom simulé
-
-// -------------------------
-
 
 // --- VERIFICATION DE SECURITE ---
 
