@@ -50,7 +50,7 @@ if (isset($_SESSION['error_message'])) {
                 <h5>Mes informations</h5>
             </div>
             <div class="card-body">
-                <form action="../actions/traitement_profil_dem.php" method="POST">
+                <form action="../actions/traitement_profil_demenageur.php" method="POST">
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="nom" class="form-label">Nom</label>
