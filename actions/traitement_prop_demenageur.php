@@ -63,9 +63,9 @@ $stmt_prop->close;
 
 
 try {
-    $sql_insert = "INSERT INTO PROPOSITION (id_annonce, id_demenageur,prix_propose, message) VALUES (?,?,?,?)"
+    $sql_insert = "INSERT INTO PROPOSITION (id_annonce, id_demenageur,prix_propose, message) VALUES (?,?,?,?)";
         $stmt_insert = $mysqli->prepare($sql_insert);
-        $stml_insert-> bind_param('iids',$id_annonce,$id_demenageur_connecte,$prix,$message);
+        $stmt_insert-> bind_param('iids',$id_annonce,$id_demenageur_connecte,$prix,$message);
         if($stmt_insert->execute())
         {
             $_SESSION ['success_message']="proposition envoyée";

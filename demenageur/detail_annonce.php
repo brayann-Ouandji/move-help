@@ -152,7 +152,7 @@ if (isset($_SESSION['error_message'])) {
                     <h4>Faire une proposition</h4>
                 </div>
                 <div class="card-body">
-                    <form action="../actions/traitement_proposition.php" method="POST">
+                    <form action="../actions/traitement_prop_demenageur.php" method="POST">
                         <input type="hidden" name="id_annonce" value="<?php echo $id_annonce; ?>">
                         <input type="hidden" name="id_demenageur" value="<?php echo $id_demenageur_connecte; ?>">
                         
