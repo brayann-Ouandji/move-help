@@ -1,7 +1,7 @@
 <?php
 $titre_page = "Mes Propositions";
 include 'includes/header_demenageur.php';
-
+require_once __DIR__ . '/../includes/db.php';
 
 $id_utilisateur = $_SESSION['user_id'];
 $stmt_dem = $mysqli->prepare("SELECT id_demenageur FROM DEMENAGEUR WHERE id_utilisateur = ?");

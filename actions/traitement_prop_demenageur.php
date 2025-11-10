@@ -9,6 +9,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'demenageur') {
     exit;
 }
 
+
 //  Vérifier que le formulaire a été soumis en POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     $_SESSION['error_message'] = "Méthode non autorisée.";
@@ -17,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 //  Vérifier que les données nécessaires sont disponibles
-if (!isset($_POST['id_proposition'], $_POST['id_annonce'], $_POST['action'])) {
+if (!isset($_POST['id_annonce']) || !isset($_POST['id_demenageur']) || !isset( $_POST['prix'])) {
     $_SESSION['error_message'] = "Données manquantes.";
     header('Location: ../demenageur/annonce.php');
     exit;
@@ -55,15 +56,15 @@ $stmt_prop->store_result();
 if ($stmt_prop->num_rows>0) {
     $_SESSION['error_message'] = "Vous avez deja fait une proposition sur cette annonce.";
     header('Location: ' . $redirect_url);
-    $stmt_prop->close;
-    $mysqli->close;
+    $stmt_prop->close();
+    $mysqli->close();
     exit;
 }
-$stmt_prop->close;
+$stmt_prop->close();
 
 
 try {
-    $sql_insert = "INSERT INTO PROPOSITION (id_annonce, id_demenageur,prix_propose, message) VALUES (?,?,?,?)";
+    $sql_insert = "INSERT INTO PROPOSITION (id_annonce, id_demenageur, prix_propose, message) VALUES (?, ?, ?, ?)";
         $stmt_insert = $mysqli->prepare($sql_insert);
         $stmt_insert-> bind_param('iids',$id_annonce,$id_demenageur_connecte,$prix,$message);
         if($stmt_insert->execute())
