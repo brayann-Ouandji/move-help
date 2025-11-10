@@ -141,7 +141,7 @@ if (isset($_SESSION['error_message'])) {
                             <span class="badge bg-danger">Refusée</span>
                         <?php endif; ?>
                     </strong></p>
-                    <a href="mes_propositions.php" class="btn btn-primary w-100">Voir toutes mes propositions</a>
+                    <a href="mes_proposition.php" class="btn btn-primary w-100">Voir toutes mes propositions</a>
                 </div>
             </div>
 
