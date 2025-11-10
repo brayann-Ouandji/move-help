@@ -85,7 +85,7 @@ if (isset($_SESSION['error_message'])) {
         if ($annonce['statut'] == 'publiee'):
             // Si l'annonce est 'publiée', on peut la modifier ou la supprimer
         ?>
-            <a href="modifier-annonce.php?id=<?php echo $id_annonce; ?>" class="btn btn-outline-primary"><i class="bi bi-pencil"></i> Modifier</a>
+            <a href="modifier_annonces.php?id=<?php echo $id_annonce; ?>" class="btn btn-outline-primary"><i class="bi bi-pencil"></i> Modifier</a>
             <a href="../actions/traitement_supprimer_annonce.php?id=<?php echo $id_annonce; ?>" class="btn btn-outline-danger" onclick="return confirm('Voulez-vous vraiment supprimer cette annonce ?');">
                 <i class="bi bi-trash"></i> Supprimer
             </a>
@@ -98,7 +98,7 @@ if (isset($_SESSION['error_message'])) {
         <?php elseif ($annonce['statut'] == 'terminee'): 
             // Si elle est 'terminée', on affiche le bouton pour Évaluer
         ?>
-            <a href="evaluer.php?id=<?php echo $id_annonce; ?>" class="btn btn-warning">
+            <a href="evaluation.php?id=<?php echo $id_annonce; ?>" class="btn btn-warning">
                 <i class="bi bi-star-fill"></i> Évaluer les déménageurs
             </a>
         <?php endif; ?>
@@ -163,7 +163,7 @@ if (isset($_SESSION['error_message'])) {
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-3 text-center">
-                        <img src="../img/default_profil.png" class="img-fluid rounded-circle mb-2" style="width: 80px;" alt="profil">
+                        <img src="../image/default_profil.png" class="img-fluid rounded-circle mb-2" style="width: 80px;" alt="profil">
                         <strong><?php echo $prop['prenom'] . ' ' . $prop['nom']; ?></strong><br>
                         <small>Note: <?php echo $prop['note_moyenne'] ?? 'N/A'; ?>/5</small>
                     </div>

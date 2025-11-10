@@ -126,7 +126,7 @@ $stmt_avenir->close();
             ?>
         </div>
         <div class="text-center mt-3">
-            <a href="annonces.php" class="btn btn-primary">Voir toutes les annonces disponibles</a>
+            <a href="annonce.php" class="btn btn-primary">Voir toutes les annonces disponibles</a>
         </div>
     </div>
 </div>
