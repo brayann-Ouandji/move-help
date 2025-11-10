@@ -27,16 +27,16 @@ if (isset($_GET['statut']) && in_array($_GET['statut'], $filtres_autorises)) {
 
 <ul class="nav nav-tabs mb-3">
     <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="mes_propositions.php">Toutes</a>
+        <a class="nav-link active" aria-current="page" href="mes_proposition.php">Toutes</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="mes_propositions.php?statut=en_attente">En attente</a>
+        <a class="nav-link" href="mes_proposition.php?statut=en_attente">En attente</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="mes_propositions.php?statut=acceptee">Acceptées</a>
+        <a class="nav-link" href="mes_proposition.php?statut=acceptee">Acceptées</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="mes_propositions.php?statut=refusee">Refusées</a>
+        <a class="nav-link" href="mes_proposition.php?statut=refusee">Refusées</a>
     </li>
 </ul>
 
@@ -106,7 +106,7 @@ if (isset($_GET['statut']) && in_array($_GET['statut'], $filtres_autorises)) {
             </div>
             <span class="badge <?php echo $badge_class;?> fs-6"><?php echo $badge_text; ?></span>
         </div>
-        <p class="mb-1 mt-2">Votre proposition : <strong><?php echo $prop_['prix_propose']; ?> € </strong></p>
+        <p class="mb-1 mt-2">Votre proposition : <strong><?php echo $prop['prix_propose']; ?> € </strong></p>
     </a>
     <?php 
         }
