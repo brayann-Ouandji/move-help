@@ -28,6 +28,20 @@ $stmt_acceptees->bind_param('i', $id_demenageur_connecte);
 $stmt_acceptees->execute();
 $count_acceptees = $stmt_acceptees->get_result()->fetch_assoc()['total'];
 $stmt_acceptees->close();
+//missions à venir (celles qui sont acceptées ET dans le futur)
+$sql_avenir = "SELECT COUNT(p.id_proposition) as total 
+               FROM PROPOSITION p
+               JOIN ANNONCE a ON p.id_annonce = a.id_annonce
+               WHERE p.id_demenageur = ? 
+               AND p.statut = 'acceptee' 
+               AND a.date_demenagement > NOW()"; // La condition "dans le futur", on verifie que la dtae est plus taradL.
+
+$stmt_avenir = $mysqli->prepare($sql_avenir);
+$stmt_avenir->bind_param('i', $id_demenageur_connecte);
+$stmt_avenir->execute();
+$count_avenir = $stmt_avenir->get_result()->fetch_assoc()['total'];
+$stmt_avenir->close();
+?>
 ?>
 
 <h1 class="mb-4">Bienvenue, <?php echo $_SESSION['user_prenom'] . ' ' . $_SESSION['user_nom']; ?> !</h1>
