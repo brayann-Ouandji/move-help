@@ -42,7 +42,7 @@ $stmt_avenir->execute();
 $count_avenir = $stmt_avenir->get_result()->fetch_assoc()['total'];
 $stmt_avenir->close();
 ?>
-?>
+
 
 <h1 class="mb-4">Bienvenue, <?php echo $_SESSION['user_prenom'] . ' ' . $_SESSION['user_nom']; ?> !</h1>
 
