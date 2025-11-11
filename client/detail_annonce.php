@@ -36,6 +36,8 @@ if ($result_annonce->num_rows === 0) {
 }
 $annonce = $result_annonce->fetch_assoc();
 $stmt_annonce->close();
+$date_dem = new DateTime($annonce['date_demenagement']);
+$date_maintenant = new DateTime();
 
 //  Récupérer les photos de l'annonce
 $sql_photos = "SELECT * FROM PHOTO_ANNONCE WHERE id_annonce = ? ORDER BY ordre ASC";
@@ -62,7 +64,7 @@ $stmt_props->close();
 $mysqli->close();
 
 
-$date_dem = new DateTime($annonce['date_demenagement']);
+// $date_dem = new DateTime($annonce['date_demenagement']);
 ?>
 
 <?php
@@ -97,6 +99,22 @@ if (isset($_SESSION['error_message'])) {
 
         <?php elseif ($annonce['statut'] == 'terminee'): 
             // Si elle est 'terminée', on affiche le bouton pour Évaluer
+            // Si l'annonce est acceptée, on vérifie la date
+            
+            if ($date_dem < $date_maintenant):
+                // La date est PASSÉE, on affiche le bouton "Terminer"
+        ?>
+                <a href="../actions/traitement_annonce_terminee.php?id=<?php echo $id_annonce; ?>" class="btn btn-info" onclick="return confirm('Confirmez-vous que ce déménagement est terminé ?');">
+                    <i class="bi bi-check-all"></i> Marquer comme terminée
+                </a>
+        <?php 
+            else:
+                // La date est DANS LE FUTUR, on affiche un badge
+        ?>
+                <span class="badge bg-success fs-6">Déménagement confirmé (à venir)</span>
+        <?php
+            endif;
+            elseif ($annonce['statut'] == 'terminee'):
         ?>
             <a href="evaluation.php?id=<?php echo $id_annonce; ?>" class="btn btn-warning">
                 <i class="bi bi-star-fill"></i> Évaluer les déménageurs

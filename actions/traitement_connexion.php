@@ -21,8 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     
     // On récupère toutes les infos dont on aura besoin pour la session
-    $sql = "SELECT id_utilisateur, mot_de_passe, role, nom, prenom 
-            FROM UTILISATEUR 
+    $sql = "SELECT id_utilisateur, mot_de_passe, role, nom, prenom, statut
+            FROM UTILISATEUR
             WHERE email = ?";
     
     $stmt = $mysqli->prepare($sql);
@@ -39,12 +39,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         //  VÉRIFIER LE MOT DE PASSE (le plus important)
         
         if (password_verify($password_saisi, $utilisateur['mot_de_passe'])) {
-            
-         
+            if ($utilisateur['statut'] != 'actif') {
+                 // L'utilisateur est trouvé, le mdp est bon, MAIS le compte est désactivé
+                $_SESSION['error_message'] = "Votre compte est actuellement désactivé. Veuillez contacter un administrateur.";
+                header('Location: ../connexion.php');
+                exit;
+            }
+        
             $_SESSION['user_id'] = $utilisateur['id_utilisateur'];
             $_SESSION['user_role'] = $utilisateur['role'];
             $_SESSION['user_prenom'] = $utilisateur['prenom'];
             $_SESSION['user_nom'] = $utilisateur['nom'];
+            
 
             //  Rediriger l'utilisateur vers son dashboard
             
@@ -83,4 +89,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     header('Location: ../connexion.php');
     exit;
 }
+
+
 ?>

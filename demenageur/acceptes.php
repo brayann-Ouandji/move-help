@@ -97,7 +97,7 @@ if ($result_list->num_rows > 0) {
                     </a>
                 </D>
                 
-                <a href="annonce-detail.php?id=<?php echo $mission['id_annonce']; ?>" class="btn btn-primary btn-sm d-block mb-2">Revoir l'annonce complète</a>
+                <a href="detail_annonce.php?id=<?php echo $mission['id_annonce']; ?>" class="btn btn-primary btn-sm d-block mb-2">Revoir l'annonce complète</a>
                 
                 <a href="<?php echo $google_maps_link; ?>" target="_blank" class="btn btn-info btn-sm d-block">
                     <i class="bi bi-map-fill"></i> Voir l'itinéraire (Maps)

@@ -66,7 +66,7 @@ $count_done = $result_done->fetch_assoc()['total'];
                     $role_icon = $user['role'] == 'client' ? 'bi-person-fill' : 'bi-truck';
                     echo '<li class="list-group-item">';
                     echo '<i class="bi ' . $role_icon . '"></i> ';
-                    echo 'Nouvel ' . $user['role'] . ' : <strong>' . ($user['prenom'] . ' ' . $user['nom']) . '</strong>';
+                    echo 'Nouveau ' . $user['role'] . ' : <strong>' . ($user['prenom'] . ' ' . $user['nom']) . '</strong>';
                     echo '<small class="text-muted float-end">' . (new DateTime($user['date_inscription']))->format('d/m/Y') . '</small>';
                     echo '</li>';
                 }
