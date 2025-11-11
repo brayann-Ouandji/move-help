@@ -32,7 +32,7 @@
         <h5 class="text-warning text-uppercase">Contact</h5>
         <ul class="list-unstyled mb-0">
           <li class="mb-2">
-            <i class="bi bi-envelope-fill me-2"></i> <a href='mailto:contact@move_help.fr'>contact@move_help.fr</a>
+            <i class="bi bi-envelope-fill me-2"></i> <a href='mailto:contact@move_help.fr'>contact@movehelp.fr</a>
           </li>
           <li class="mb-2">
             <i class="bi bi-telephone-fill me-2"></i> <a href='tel: 07 80 20 60 10'>07 80 20 60 10</a>
