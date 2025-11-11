@@ -113,7 +113,7 @@ if (isset($_SESSION['error_message'])) {
     <?php endforeach; ?>
 </div>
 
-<a href="mes-annonces.php" class="btn btn-secondary mt-3">Retour à mes annonces</a>
+<a href="mes_annonces.php" class="btn btn-secondary mt-3">Retour à mes annonces</a>
 
 <?php
 include 'includes/footer_client.php';

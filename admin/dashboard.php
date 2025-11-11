@@ -64,6 +64,9 @@ $count_done = $result_done->fetch_assoc()['total'];
             if ($result_recent->num_rows > 0) {
                 while ($user = $result_recent->fetch_assoc()) {
                     $role_icon = $user['role'] == 'client' ? 'bi-person-fill' : 'bi-truck';
+                    if($user['role'] == 'admin') {
+                        $role_icon = 'bi-shield-lock-fill';
+                    }
                     echo '<li class="list-group-item">';
                     echo '<i class="bi ' . $role_icon . '"></i> ';
                     echo 'Nouveau ' . $user['role'] . ' : <strong>' . ($user['prenom'] . ' ' . $user['nom']) . '</strong>';

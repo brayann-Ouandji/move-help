@@ -64,7 +64,7 @@ $stmt_avenir->close();
     <div class="col-md-4">
         <div class="card text-center text-bg-info mb-3">
             <div class="card-body">
-                <h5 class="card-title">note moyennes</h5>
+                <h5 class="card-title">note moyenne</h5>
                 <p class="card-text fs-3 fw-bold"><?php echo number_format($note_moyenne, 1);?></p> </div>
         </div>
     </div>

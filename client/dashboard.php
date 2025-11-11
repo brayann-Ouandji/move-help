@@ -61,7 +61,7 @@ $count_terminees = $stmt_terminees->get_result()->fetch_assoc()['total'];
     <div class="col-md-4">
         <div class="card text-center text-bg-info mb-3">
             <div class="card-body">
-                <h5 class="card-title">Missions Terminées</h5>
+                <h5 class="card-title">Déménagements Terminées</h5>
                 <p class="card-text fs-3 fw-bold"><?php echo $count_terminees;?></p> </div>
         </div>
     </div>
