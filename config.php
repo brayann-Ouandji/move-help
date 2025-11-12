@@ -3,9 +3,9 @@
 
 
    $host="localhost";
-   $login="root";
-   $password="";
-   $dbname="bdd_7_5"; // À modifier si nécessaire
+   $login="root";//"grp_7_5";// À modifier si nécessaire
+   $password="";//"T0noTMCBcQKwOP";
+   $dbname="bdd_7_5"; 
 
 
 
