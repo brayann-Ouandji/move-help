@@ -10,8 +10,8 @@ $id_utilisateur_connecte = $_SESSION['user_id'];
 $sql = "SELECT 
             u.nom, u.prenom, u.email, u.telephone, u.photo_profil,
             d.ville_de_residence, d.annees_experience, d.vehicule_disponible, d.type_vehicule, d.note_moyenne
-        FROM UTILISATEUR u
-        JOIN DEMENAGEUR d ON u.id_utilisateur = d.id_utilisateur
+        FROM utilisateur u
+        JOIN demenageur d ON u.id_utilisateur = d.id_utilisateur
         WHERE u.id_utilisateur = ?";
 
 $stmt = $mysqli->prepare($sql);

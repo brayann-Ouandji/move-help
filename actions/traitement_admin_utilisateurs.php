@@ -37,7 +37,7 @@ if ($action != 'actif' && $action != 'desactive') {
 
 //  METTRE À JOUR LE STATUT DE L'UTILISATEUR 
 try {
-    $sql_update = "UPDATE UTILISATEUR SET statut = ? WHERE id_utilisateur = ?";
+    $sql_update = "UPDATE utilisateur SET statut = ? WHERE id_utilisateur = ?";
     $stmt_update = $mysqli->prepare($sql_update);
     $stmt_update->bind_param('si', $action, $id_user_a_modifier);
     

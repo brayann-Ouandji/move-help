@@ -40,7 +40,7 @@ if (strlen($new_pass) < 8) {
 }
 
 // VÉRIFIER L'ANCIEN MOT DE PASSE 
-$stmt = $mysqli->prepare("SELECT mot_de_passe FROM UTILISATEUR WHERE id_utilisateur = ?");
+$stmt = $mysqli->prepare("SELECT mot_de_passe FROM utilisateur WHERE id_utilisateur = ?");
 $stmt->bind_param('i', $id_utilisateur_connecte);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -57,7 +57,7 @@ if (!$user || !password_verify($old_pass, $user['mot_de_passe'])) {
 // METTRE À JOUR LE MOT DE PASSE
 $new_pass_hash = password_hash($new_pass, PASSWORD_BCRYPT);
 
-$sql_update = "UPDATE UTILISATEUR SET mot_de_passe = ? WHERE id_utilisateur = ?";
+$sql_update = "UPDATE utilisateur SET mot_de_passe = ? WHERE id_utilisateur = ?";
 $stmt_update = $mysqli->prepare($sql_update);
 $stmt_update->bind_param('si', $new_pass_hash, $id_utilisateur_connecte);
 

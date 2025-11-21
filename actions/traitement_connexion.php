@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     // On récupère toutes les infos dont on aura besoin pour la session
     $sql = "SELECT id_utilisateur, mot_de_passe, role, nom, prenom, statut
-            FROM UTILISATEUR
+            FROM utilisateur
             WHERE email = ?";
     
     $stmt = $mysqli->prepare($sql);

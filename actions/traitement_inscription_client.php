@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     
 
-    $sql_check = "SELECT id_utilisateur FROM UTILISATEUR WHERE email = ?";
+    $sql_check = "SELECT id_utilisateur FROM utilisateur WHERE email = ?";
     $stmt_check = $mysqli->prepare($sql_check);
     $stmt_check->bind_param('s', $email);
     $stmt_check->execute();
@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     try {
         //  Insérer dans la table UTILISATEUR
-        $sql_user = "INSERT INTO UTILISATEUR (nom, prenom, email, telephone, mot_de_passe, role) 
+        $sql_user = "INSERT INTO utilisateur (nom, prenom, email, telephone, mot_de_passe, role) 
                      VALUES (?, ?, ?, ?, ?, 'client')";
         
         $stmt_user = $mysqli->prepare($sql_user);
@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $id_utilisateur_cree = $mysqli->insert_id;
 
         //  Insérer dans la table CLIENT
-        $sql_client = "INSERT INTO CLIENT (id_utilisateur, ville) VALUES (?, ?)";
+        $sql_client = "INSERT INTO client (id_utilisateur, ville) VALUES (?, ?)";
         // On met une ville vide par défaut, l'utilisateur la remplira dans son profil
         $ville_defaut = ""; 
         

@@ -5,7 +5,7 @@ include 'includes/header_demenageur.php';
 require_once __DIR__ . '/../includes/db.php';
 
 $id_utilisateur = $_SESSION['user_id'];
-$stmt_dem = $mysqli->prepare("SELECT id_demenageur FROM DEMENAGEUR WHERE id_utilisateur = ?");
+$stmt_dem = $mysqli->prepare("SELECT id_demenageur FROM demenageur WHERE id_utilisateur = ?");
 $stmt_dem->bind_param('i', $id_utilisateur);
 $stmt_dem->execute();
 $result_dem = $stmt_dem->get_result();
@@ -22,10 +22,10 @@ $sql = "SELECT
             a.adress_depart, a.ville_depart, a.code_postal_depart,
             a.adress_arrivee, a.ville_arrivee, a.code_postal_arrivee,
             u.nom as client_nom, u.prenom as client_prenom, u.telephone as client_telephone
-        FROM PROPOSITION p
-        JOIN ANNONCE a ON p.id_annonce = a.id_annonce
-        JOIN CLIENT c ON a.id_client = c.id_client
-        JOIN UTILISATEUR u ON c.id_utilisateur = u.id_utilisateur
+        FROM proposition p
+        JOIN annonce a ON p.id_annonce = a.id_annonce
+        JOIN client c ON a.id_client = c.id_client
+        JOIN utilisateur u ON c.id_utilisateur = u.id_utilisateur
         WHERE p.id_demenageur = ?
         AND p.statut = 'acceptee'
         ORDER BY a.date_demenagement ASC"; // Trier par la mission la plus proche

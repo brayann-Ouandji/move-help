@@ -33,7 +33,7 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 }
 
 // VÉRIFIER L'UNICITÉ DE L'EMAIL (s'il a changé) 
-$stmt_check = $mysqli->prepare("SELECT id_utilisateur FROM UTILISATEUR WHERE email = ? AND id_utilisateur != ?");
+$stmt_check = $mysqli->prepare("SELECT id_utilisateur FROM utilisateur WHERE email = ? AND id_utilisateur != ?");
 $stmt_check->bind_param('si', $email, $id_utilisateur_connecte);
 $stmt_check->execute();
 $stmt_check->store_result();
@@ -50,14 +50,14 @@ $stmt_check->close();
 $mysqli->begin_transaction();
 try {
     //Mettre à jour la table UTILISATEUR
-    $sql_user = "UPDATE UTILISATEUR SET nom = ?, prenom = ?, email = ?, telephone = ? WHERE id_utilisateur = ?";
+    $sql_user = "UPDATE utilisateur SET nom = ?, prenom = ?, email = ?, telephone = ? WHERE id_utilisateur = ?";
     $stmt_user = $mysqli->prepare($sql_user);
     $stmt_user->bind_param('ssssi', $nom, $prenom, $email, $telephone, $id_utilisateur_connecte);
     $stmt_user->execute();
     $stmt_user->close();
 
     //Mettre à jour la table CLIENT
-    $sql_client = "UPDATE CLIENT SET adress = ?, ville = ?, code_postal = ? WHERE id_utilisateur = ?";
+    $sql_client = "UPDATE client SET adress = ?, ville = ?, code_postal = ? WHERE id_utilisateur = ?";
     $stmt_client = $mysqli->prepare($sql_client);
     $stmt_client->bind_param('sssi', $adresse, $ville, $code_postal, $id_utilisateur_connecte);
     $stmt_client->execute();

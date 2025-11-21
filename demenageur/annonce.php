@@ -5,7 +5,7 @@ require_once __DIR__ . '/../includes/db.php'; // Connexion BDD
 
 
 $id_utilisateur = $_SESSION['user_id'];
-$stmt_dem = $mysqli->prepare("SELECT id_demenageur FROM DEMENAGEUR WHERE id_utilisateur = ?");
+$stmt_dem = $mysqli->prepare("SELECT id_demenageur FROM demenageur WHERE id_utilisateur = ?");
 $stmt_dem->bind_param('i', $id_utilisateur);
 $stmt_dem->execute();
 $result_dem = $stmt_dem->get_result();
@@ -50,8 +50,8 @@ $stmt_dem->close();
                 a.ville_arrivee, a.volume_m3, a.nb_demenageur_souhaites,
                 p.id_proposition,  -- Sera NULL si le déménageur n'a pas proposé
                 p.statut as statut_proposition
-            FROM ANNONCE a
-            LEFT JOIN PROPOSITION p ON a.id_annonce = p.id_annonce AND p.id_demenageur = ?
+            FROM annonce a
+            LEFT JOIN proposition p ON a.id_annonce = p.id_annonce AND p.id_demenageur = ?
             WHERE a.statut = 'publiee'";
     
     $params = [$id_demenageur_connecte];

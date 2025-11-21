@@ -25,7 +25,7 @@ $id_utilisateur = $_SESSION['user_id'];
 $redirect_url = '../client/evaluation.php?id=' . $id_annonce;
 
 // Récupérer l'ID client
-$stmt_client = $mysqli->prepare("SELECT id_client FROM CLIENT WHERE id_utilisateur = ?");
+$stmt_client = $mysqli->prepare("SELECT id_client FROM client WHERE id_utilisateur = ?");
 $stmt_client->bind_param('i', $id_utilisateur);
 $stmt_client->execute();
 $id_client_connecte = $stmt_client->get_result()->fetch_assoc()['id_client'];
@@ -34,7 +34,7 @@ $stmt_client->close();
 
 
 //  Vérifier que l'annonce appartient bien au client ET est terminée
-$stmt_check = $mysqli->prepare("SELECT id_client FROM ANNONCE WHERE id_annonce = ? AND id_client = ? AND statut = 'terminee'");
+$stmt_check = $mysqli->prepare("SELECT id_client FROM annonce WHERE id_annonce = ? AND id_client = ? AND statut = 'terminee'");
 $stmt_check->bind_param('ii', $id_annonce, $id_client_connecte);
 $stmt_check->execute();
 $result_check = $stmt_check->get_result();
@@ -46,7 +46,7 @@ if ($result_check->num_rows === 0) {
 $stmt_check->close();
 
 //  Vérifier que ce déménageur a bien été 'acceptee' pour cette annonce
-$stmt_prop = $mysqli->prepare("SELECT id_proposition FROM PROPOSITION WHERE id_annonce = ? AND id_demenageur = ? AND statut = 'acceptee'");
+$stmt_prop = $mysqli->prepare("SELECT id_proposition FROM proposition WHERE id_annonce = ? AND id_demenageur = ? AND statut = 'acceptee'");
 $stmt_prop->bind_param('ii', $id_annonce, $id_demenageur);
 $stmt_prop->execute();
 if ($stmt_prop->get_result()->num_rows === 0) {
@@ -57,7 +57,7 @@ if ($stmt_prop->get_result()->num_rows === 0) {
 $stmt_prop->close();
 
 // Vérifier qu'une évaluation n'existe pas déjà
-$stmt_eval = $mysqli->prepare("SELECT id_evaluation FROM EVALUATION WHERE id_annonce = ? AND id_demenageur = ? AND id_client = ?");
+$stmt_eval = $mysqli->prepare("SELECT id_evaluation FROM evaluation WHERE id_annonce = ? AND id_demenageur = ? AND id_client = ?");
 $stmt_eval->bind_param('iii', $id_annonce, $id_demenageur, $id_client_connecte);
 $stmt_eval->execute();
 if ($stmt_eval->get_result()->num_rows > 0) {
@@ -72,7 +72,7 @@ $stmt_eval->close();
 $mysqli->begin_transaction();
 try {
     //  Insérer la nouvelle évaluation
-    $sql_insert = "INSERT INTO EVALUATION (id_annonce, id_client, id_demenageur, note, commentaire, date_evaluation)
+    $sql_insert = "INSERT INTO evaluation (id_annonce, id_client, id_demenageur, note, commentaire, date_evaluation)
                    VALUES (?, ?, ?, ?, ?, NOW())";
     $stmt_insert = $mysqli->prepare($sql_insert);
     $stmt_insert->bind_param('iiiis', $id_annonce, $id_client_connecte, $id_demenageur, $note, $commentaire);
@@ -81,10 +81,10 @@ try {
 
     //  Recalculer la note moyenne du déménageur
     
-    $sql_avg = "UPDATE DEMENAGEUR d
+    $sql_avg = "UPDATE demenageur d
                 SET d.note_moyenne = (
                     SELECT AVG(e.note)
-                    FROM EVALUATION e
+                    FROM evaluation e
                     WHERE e.id_demenageur = ?
                 )
                 WHERE d.id_demenageur = ?";

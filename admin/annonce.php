@@ -7,9 +7,9 @@ require_once __DIR__ . '/../includes/db.php';
 $sql = "SELECT 
             a.id_annonce, a.titre, a.date_demenagement, a.statut,
             u.nom, u.prenom
-        FROM ANNONCE a
-        JOIN CLIENT c ON a.id_client = c.id_client
-        JOIN UTILISATEUR u ON c.id_utilisateur = u.id_utilisateur
+        FROM annonce a
+        JOIN client c ON a.id_client = c.id_client
+        JOIN utilisateur u ON c.id_utilisateur = u.id_utilisateur
         ORDER BY a.date_creation DESC";
 $result = $mysqli->query($sql);
 
@@ -60,9 +60,9 @@ $statut_filtre = $_GET['statut'] ?? ''; // Le statut (publiee, acceptee, ...)
                 $sql = "SELECT 
                             a.id_annonce, a.titre, a.date_demenagement, a.statut,
                             u.nom, u.prenom
-                        FROM ANNONCE a
-                        JOIN CLIENT c ON a.id_client = c.id_client
-                        JOIN UTILISATEUR u ON c.id_utilisateur = u.id_utilisateur
+                        FROM annonce a
+                        JOIN client c ON a.id_client = c.id_client
+                        JOIN utilisateur u ON c.id_utilisateur = u.id_utilisateur
                         WHERE 1=1"; // technique pour faciliter l'ajout de filtres
                 
                 $params = []; // Tableau pour les paramètres

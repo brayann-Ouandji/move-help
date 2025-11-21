@@ -4,7 +4,7 @@ include 'includes/header_demenageur.php';
 require_once __DIR__ . '/../includes/db.php';
 
 $id_utilisateur = $_SESSION['user_id'];
-$stmt_dem = $mysqli->prepare("SELECT id_demenageur, note_moyenne FROM DEMENAGEUR WHERE id_utilisateur = ?");
+$stmt_dem = $mysqli->prepare("SELECT id_demenageur, note_moyenne FROM demenageur WHERE id_utilisateur = ?");
 $stmt_dem->bind_param('i', $id_utilisateur);
 $stmt_dem->execute();
 $result_dem = $stmt_dem->get_result();
@@ -14,7 +14,7 @@ $note_moyenne = $dem_data['note_moyenne'];
 $stmt_dem->close();
 
 // Propositions envoyées
-$sql_envoyees = "SELECT COUNT(*) as total FROM PROPOSITION WHERE id_demenageur = ?";
+$sql_envoyees = "SELECT COUNT(*) as total FROM proposition WHERE id_demenageur = ?";
 $stmt_envoyees = $mysqli->prepare($sql_envoyees);
 $stmt_envoyees->bind_param('i', $id_demenageur_connecte);
 $stmt_envoyees->execute();
@@ -22,7 +22,7 @@ $count_envoyees = $stmt_envoyees->get_result()->fetch_assoc()['total'];
 $stmt_envoyees->close();
 
 // Missions acceptées
-$sql_acceptees = "SELECT COUNT(*) as total FROM PROPOSITION WHERE id_demenageur = ? AND statut = 'acceptee'";
+$sql_acceptees = "SELECT COUNT(*) as total FROM proposition WHERE id_demenageur = ? AND statut = 'acceptee'";
 $stmt_acceptees = $mysqli->prepare($sql_acceptees);
 $stmt_acceptees->bind_param('i', $id_demenageur_connecte);
 $stmt_acceptees->execute();
@@ -30,8 +30,8 @@ $count_acceptees = $stmt_acceptees->get_result()->fetch_assoc()['total'];
 $stmt_acceptees->close();
 //missions à venir (celles qui sont acceptées ET dans le futur)
 $sql_avenir = "SELECT COUNT(p.id_proposition) as total 
-               FROM PROPOSITION p
-               JOIN ANNONCE a ON p.id_annonce = a.id_annonce
+               FROM proposition p
+               JOIN annonce a ON p.id_annonce = a.id_annonce
                WHERE p.id_demenageur = ? 
                AND p.statut = 'acceptee' 
                AND a.date_demenagement > NOW()"; // La condition "dans le futur", on verifie que la dtae est plus taradL.
@@ -91,10 +91,10 @@ $stmt_avenir->close();
             // On cherche les annonces publiées
             // où le déménageur n'a PAS fait de proposition
             $sql_list = "SELECT a.id_annonce, a.titre, a.date_demenagement, a.volume_m3
-                         FROM ANNONCE a
+                         FROM annonce a
                          WHERE a.statut = 'publiee'
                          AND a.id_annonce NOT IN (
-                             SELECT id_annonce FROM PROPOSITION WHERE id_demenageur = ?
+                             SELECT id_annonce FROM proposition WHERE id_demenageur = ?
                          )
                          ORDER BY a.date_creation DESC
                          LIMIT 3";
@@ -140,8 +140,8 @@ $stmt_avenir->close();
             <?php
             // 4. --- REQUÊTE POUR LES MISSIONS À VENIR ---
             $sql_missions = "SELECT a.id_annonce, a.titre, a.date_demenagement
-                             FROM PROPOSITION p
-                             JOIN ANNONCE a ON p.id_annonce = a.id_annonce
+                             FROM proposition p
+                             JOIN annonce a ON p.id_annonce = a.id_annonce
                              WHERE p.id_demenageur = ?
                              AND p.statut = 'acceptee'
                              AND a.date_demenagement > NOW()

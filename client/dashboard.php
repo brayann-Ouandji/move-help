@@ -6,7 +6,7 @@ require_once __DIR__ . '/../includes/db.php';
 
 
 $id_utilisateur=$_SESSION['user_id'];
-$sql_client = "SELECT id_client FROM CLIENT WHERE id_utilisateur = ?";
+$sql_client = "SELECT id_client FROM client WHERE id_utilisateur = ?";
 $stmt_client = $mysqli->prepare($sql_client);
 $stmt_client->bind_param('i', $id_utilisateur);
 $stmt_client->execute();
@@ -15,7 +15,7 @@ $client_data = $result_client->fetch_assoc();
 $id_client_connecte = $client_data['id_client'];
 
 // Annonces Actives (statut 'publiee' ou 'acceptee')
-$sql_actives = "SELECT COUNT(*) as total FROM ANNONCE WHERE id_client = ? AND statut IN ('publiee', 'acceptee')";
+$sql_actives = "SELECT COUNT(*) as total FROM annonce WHERE id_client = ? AND statut IN ('publiee', 'acceptee')";
 $stmt_actives = $mysqli->prepare($sql_actives);
 $stmt_actives->bind_param('i', $id_client_connecte);
 $stmt_actives->execute();
@@ -23,8 +23,8 @@ $count_actives = $stmt_actives->get_result()->fetch_assoc()['total'];
 
 //Propositions reçues (sur les annonces 'publiees' du client)
 $sql_props = "SELECT COUNT(p.id_proposition) as total 
-              FROM PROPOSITION p
-              JOIN ANNONCE a ON p.id_annonce = a.id_annonce
+              FROM proposition p
+              JOIN annonce a ON p.id_annonce = a.id_annonce
               WHERE a.id_client = ? AND a.statut = 'publiee'";
 $stmt_props = $mysqli->prepare($sql_props);
 $stmt_props->bind_param('i', $id_client_connecte);
@@ -32,7 +32,7 @@ $stmt_props->execute();
 $count_props = $stmt_props->get_result()->fetch_assoc()['total'];
 
 //Missions Terminées
-$sql_terminees = "SELECT COUNT(*) as total FROM ANNONCE WHERE id_client = ? AND statut = 'terminee'";
+$sql_terminees = "SELECT COUNT(*) as total FROM annonce WHERE id_client = ? AND statut = 'terminee'";
 $stmt_terminees = $mysqli->prepare($sql_terminees);
 $stmt_terminees->bind_param('i', $id_client_connecte);
 $stmt_terminees->execute();
@@ -78,8 +78,8 @@ $count_terminees = $stmt_terminees->get_result()->fetch_assoc()['total'];
           <?php 
                       // (On récupère les 5 dernières annonces, tous statuts confondus)
                       $sql_list = "SELECT id_annonce, titre, statut, 
-                         (SELECT COUNT(*) FROM PROPOSITION p WHERE p.id_annonce = a.id_annonce) as nb_props
-                         FROM ANNONCE a
+                         (SELECT COUNT(*) FROM proposition p WHERE p.id_annonce = a.id_annonce) as nb_props
+                         FROM annonce a
                          WHERE id_client = ?
                          ORDER BY date_creation DESC
                          LIMIT 5";

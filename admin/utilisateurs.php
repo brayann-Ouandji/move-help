@@ -6,7 +6,7 @@ require_once __DIR__ . '/../includes/db.php';
 
 
 $sql = "SELECT id_utilisateur, nom, prenom, email, role, statut
-        FROM UTILISATEUR
+        FROM utilisateur
         ORDER BY date_inscription DESC";
 $result = $mysqli->query($sql);
 $search_term = $_GET['search'] ?? ''; // Le terme de recherche (nom, email)
@@ -58,7 +58,7 @@ if (isset($_SESSION['success_message'])) {
             <tbody>
                 <?php
                 $sql = "SELECT id_utilisateur, nom, prenom, email, role, statut
-                    FROM UTILISATEUR
+                    FROM utilisateur
                     WHERE 1=1"; // technique pour faciliter l'ajout de filtres
                 
                 $params = []; // Tableau pour les paramètres de bind_param

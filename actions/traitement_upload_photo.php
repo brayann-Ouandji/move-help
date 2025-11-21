@@ -59,7 +59,7 @@ if (isset($_FILES['photo_profil']) && $_FILES['photo_profil']['error'] === UPLOA
     if (move_uploaded_file($file_tmp_name, $destination)) {
         
         // Mettre à jour la BDD
-        $sql = "UPDATE UTILISATEUR SET photo_profil = ? WHERE id_utilisateur = ?";
+        $sql = "UPDATE utilisateur SET photo_profil = ? WHERE id_utilisateur = ?";
         $stmt = $mysqli->prepare($sql);
         $stmt->bind_param('si', $db_path, $id_utilisateur_connecte);
         

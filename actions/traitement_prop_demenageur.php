@@ -33,7 +33,7 @@ $redirect_url   = '../demenageur/detail_annonce.php?id=' . $id_annonce;
 
 //  Vérifier les droits
 $id_utilisateur = $_SESSION ['user_id'];
-$stmt_demenageur = $mysqli->prepare("SELECT id_demenageur FROM DEMENAGEUR WHERE id_utilisateur = ?");
+$stmt_demenageur = $mysqli->prepare("SELECT id_demenageur FROM demenageur WHERE id_utilisateur = ?");
 $stmt_demenageur->bind_param('i', $id_utilisateur);
 $stmt_demenageur->execute();
 $result_demenageur = $stmt_demenageur->get_result();
@@ -46,7 +46,7 @@ if ($id_demenageur!=$id_demenageur_connecte) {
     exit;
 }
 // verifié si la proposition a deja été faites
-$sql_prop = "SELECT id_proposition FROM PROPOSITION WHERE id_annonce  = ? and id_demenageur = ?";
+$sql_prop = "SELECT id_proposition FROM proposition WHERE id_annonce  = ? and id_demenageur = ?";
 $stmt_prop = $mysqli->prepare($sql_prop);
 $stmt_prop->bind_param('ii',$id_annonce,$id_demenageur_connecte);
 $stmt_prop->execute();
@@ -64,7 +64,7 @@ $stmt_prop->close();
 
 
 try {
-    $sql_insert = "INSERT INTO PROPOSITION (id_annonce, id_demenageur, prix_propose, message) VALUES (?, ?, ?, ?)";
+    $sql_insert = "INSERT INTO proposition (id_annonce, id_demenageur, prix_propose, message) VALUES (?, ?, ?, ?)";
         $stmt_insert = $mysqli->prepare($sql_insert);
         $stmt_insert-> bind_param('iids',$id_annonce,$id_demenageur_connecte,$prix,$message);
         if($stmt_insert->execute())

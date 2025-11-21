@@ -22,7 +22,7 @@ if (isset($_SESSION['success_message'])) {
     <?php
     // Trouver l'id_client à partir de l'id_utilisateur (stocké dans la session)
     $id_utilisateur = $_SESSION['user_id'];
-    $sql_client = "SELECT id_client FROM CLIENT WHERE id_utilisateur = ?";
+    $sql_client = "SELECT id_client FROM client WHERE id_utilisateur = ?";
     $stmt_client = $mysqli->prepare($sql_client);
     $stmt_client->bind_param('i', $id_utilisateur);
     $stmt_client->execute();
@@ -40,8 +40,8 @@ if (isset($_SESSION['success_message'])) {
                     ville_depart, 
                     ville_arrivee, 
                     volume_m3,
-                    (SELECT COUNT(*) FROM PROPOSITION p WHERE p.id_annonce = a.id_annonce) as nb_props
-                 FROM ANNONCE a
+                    (SELECT COUNT(*) FROM proposition p WHERE p.id_annonce = a.id_annonce) as nb_props
+                 FROM annonce a
                  WHERE id_client = ?
                  ORDER BY a.date_creation DESC";
     

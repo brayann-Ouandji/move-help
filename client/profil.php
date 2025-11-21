@@ -8,8 +8,8 @@ $id_utilisateur_connecte = $_SESSION['user_id'];
 
 // On fait une jointure pour récupérer les infos des deux tables
 $sql = "SELECT u.nom, u.prenom, u.email, u.telephone, u.photo_profil, c.adress, c.code_postal, c.ville
-        FROM UTILISATEUR u
-        LEFT JOIN CLIENT c ON u.id_utilisateur = c.id_utilisateur
+        FROM utilisateur u
+        LEFT JOIN client c ON u.id_utilisateur = c.id_utilisateur
         WHERE u.id_utilisateur = ?";
 
 $stmt = $mysqli->prepare($sql);

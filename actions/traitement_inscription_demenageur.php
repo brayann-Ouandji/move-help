@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // 6. Insérer les données
     
    
-    $sql_check = "SELECT id_utilisateur FROM UTILISATEUR WHERE email = ?";
+    $sql_check = "SELECT id_utilisateur FROM utilisateur WHERE email = ?";
     $stmt_check = $mysqli->prepare($sql_check);
     $stmt_check->bind_param('s', $email);
     $stmt_check->execute();
@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     try {
      
-        $sql_user = "INSERT INTO UTILISATEUR (nom, prenom, email, telephone, mot_de_passe, role) 
+        $sql_user = "INSERT INTO utilisateur (nom, prenom, email, telephone, mot_de_passe, role) 
                      VALUES (?, ?, ?, ?, ?, 'demenageur')";
         
         $stmt_user = $mysqli->prepare($sql_user);
@@ -81,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $id_utilisateur_cree = $mysqli->insert_id;
 
 
-        $sql_dem = "INSERT INTO DEMENAGEUR (id_utilisateur, ville_de_residence, annees_experience, vehicule_disponible, type_vehicule) 
+        $sql_dem = "INSERT INTO demenageur (id_utilisateur, ville_de_residence, annees_experience, vehicule_disponible, type_vehicule) 
                     VALUES (?, ?, ?, ?, ?)";
         
         $stmt_dem = $mysqli->prepare($sql_dem);

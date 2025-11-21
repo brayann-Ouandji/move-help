@@ -4,7 +4,7 @@ include 'includes/header_demenageur.php';
 require_once __DIR__ . '/../includes/db.php';
 
 $id_utilisateur = $_SESSION['user_id'];
-$stmt_dem = $mysqli->prepare("SELECT id_demenageur FROM DEMENAGEUR WHERE id_utilisateur = ?");
+$stmt_dem = $mysqli->prepare("SELECT id_demenageur FROM demenageur WHERE id_utilisateur = ?");
 $stmt_dem->bind_param('i', $id_utilisateur);
 $stmt_dem->execute();
 $result_dem = $stmt_dem->get_result();
@@ -50,8 +50,8 @@ if (isset($_GET['statut']) && in_array($_GET['statut'], $filtres_autorises)) {
                 a.id_annonce,
                 a.titre,
                 a.date_demenagement
-            FROM PROPOSITION p
-            JOIN ANNONCE a ON p.id_annonce = a.id_annonce
+            FROM proposition p
+            JOIN annonce a ON p.id_annonce = a.id_annonce
             WHERE p.id_demenageur = ?";
     
     $params = [$id_demenageur_connecte];

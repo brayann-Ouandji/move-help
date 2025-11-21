@@ -5,7 +5,7 @@ include 'includes/header_client.php';
 require_once __DIR__ . '/../includes/db.php'; // Connexion BDD
 
 $id_utilisateur = $_SESSION['user_id'];
-$stmt_client = $mysqli->prepare("SELECT id_client FROM CLIENT WHERE id_utilisateur = ?");
+$stmt_client = $mysqli->prepare("SELECT id_client FROM client WHERE id_utilisateur = ?");
 $stmt_client->bind_param('i', $id_utilisateur);
 $stmt_client->execute();
 $result_client = $stmt_client->get_result();
@@ -21,7 +21,7 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 }
 $id_annonce = (int)$_GET['id'];
 
-$sql_annonce = "SELECT * FROM ANNONCE WHERE id_annonce = ? AND id_client = ?";
+$sql_annonce = "SELECT * FROM annonce WHERE id_annonce = ? AND id_client = ?";
 $stmt_annonce = $mysqli->prepare($sql_annonce);
 $stmt_annonce->bind_param('ii', $id_annonce, $id_client_connecte);
 $stmt_annonce->execute();
@@ -40,7 +40,7 @@ $date_dem = new DateTime($annonce['date_demenagement']);
 $date_maintenant = new DateTime();
 
 //  Récupérer les photos de l'annonce
-$sql_photos = "SELECT * FROM PHOTO_ANNONCE WHERE id_annonce = ? ORDER BY ordre ASC";
+$sql_photos = "SELECT * FROM photo_annonce WHERE id_annonce = ? ORDER BY ordre ASC";
 $stmt_photos = $mysqli->prepare($sql_photos);
 $stmt_photos->bind_param('i', $id_annonce);
 $stmt_photos->execute();
@@ -50,9 +50,9 @@ $stmt_photos->close();
 
 // Récupérer les propositions pour cette annonce
 $sql_props = "SELECT p.*, u.nom, u.prenom, u.photo_profil, d.note_moyenne
-              FROM PROPOSITION p
-              JOIN DEMENAGEUR d ON p.id_demenageur = d.id_demenageur
-              JOIN UTILISATEUR u ON d.id_utilisateur = u.id_utilisateur
+              FROM proposition p
+              JOIN demenageur d ON p.id_demenageur = d.id_demenageur
+              JOIN utilisateur u ON d.id_utilisateur = u.id_utilisateur
               WHERE p.id_annonce = ?
               ORDER BY p.date_proposition DESC";
 $stmt_props = $mysqli->prepare($sql_props);

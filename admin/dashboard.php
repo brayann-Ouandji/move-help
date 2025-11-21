@@ -6,15 +6,15 @@ require_once __DIR__ . '/../includes/db.php';
 
 
 // Total Utilisateurs
-$result_users = $mysqli->query("SELECT COUNT(*) as total FROM UTILISATEUR");
+$result_users = $mysqli->query("SELECT COUNT(*) as total FROM utilisateur");
 $count_users = $result_users->fetch_assoc()['total'];
 
 // Total Annonces
-$result_annonces = $mysqli->query("SELECT COUNT(*) as total FROM ANNONCE");
+$result_annonces = $mysqli->query("SELECT COUNT(*) as total FROM annonce");
 $count_annonces = $result_annonces->fetch_assoc()['total'];
 
 // Missions Terminées
-$result_done = $mysqli->query("SELECT COUNT(*) as total FROM ANNONCE WHERE statut = 'terminee'");
+$result_done = $mysqli->query("SELECT COUNT(*) as total FROM annonce WHERE statut = 'terminee'");
 $count_done = $result_done->fetch_assoc()['total'];
 
 ?>
@@ -56,7 +56,7 @@ $count_done = $result_done->fetch_assoc()['total'];
         <ul class="list-group">
             <?php
             $sql_recent = "SELECT nom, prenom, role, date_inscription 
-                           FROM UTILISATEUR 
+                           FROM utilisateur 
                            ORDER BY date_inscription DESC 
                            LIMIT 5";
             $result_recent = $mysqli->query($sql_recent);

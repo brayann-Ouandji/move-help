@@ -21,7 +21,7 @@ $id_annonce = (int)$_POST['id_annonce'];
 $id_utilisateur = $_SESSION['user_id'];
 
 
-$stmt_client = $mysqli->prepare("SELECT id_client FROM CLIENT WHERE id_utilisateur = ?");
+$stmt_client = $mysqli->prepare("SELECT id_client FROM client WHERE id_utilisateur = ?");
 $stmt_client->bind_param('i', $id_utilisateur);
 $stmt_client->execute();
 $id_client_connecte = $stmt_client->get_result()->fetch_assoc()['id_client'];
@@ -31,7 +31,7 @@ $stmt_client->close();
 $redirect_url = '../client/modifier_annonces.php?id=' . $id_annonce;
 
 
-$stmt_check = $mysqli->prepare("SELECT id_client FROM ANNONCE WHERE id_annonce = ?");
+$stmt_check = $mysqli->prepare("SELECT id_client FROM annonce WHERE id_annonce = ?");
 $stmt_check->bind_param('i', $id_annonce);
 $stmt_check->execute();
 $annonce_owner = $stmt_check->get_result()->fetch_assoc();
@@ -60,7 +60,7 @@ $nb_demenageurs = $_POST['nb_demenageurs'];
 
 //EXÉCUTER UPDATE
 try {
-    $sql_update = "UPDATE ANNONCE SET 
+    $sql_update = "UPDATE annonce SET 
                         titre = ?, description = ?, date_demenagement = ?,
                         ville_depart = ?, code_postal_depart = ?, type_logement_depart = ?, etage_depart = ?, ascenseur_depart = ?,
                         volume_m3 = ?, nb_demenageur_souhaites = ?, date_modification = NOW()

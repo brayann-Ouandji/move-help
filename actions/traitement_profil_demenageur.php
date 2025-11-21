@@ -35,7 +35,7 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 }
 
 // VÉRIFIER L'UNICITÉ DE L'EMAIL
-$stmt_check = $mysqli->prepare("SELECT id_utilisateur FROM UTILISATEUR WHERE email = ? AND id_utilisateur != ?");
+$stmt_check = $mysqli->prepare("SELECT id_utilisateur FROM utilisateur WHERE email = ? AND id_utilisateur != ?");
 $stmt_check->bind_param('si', $email, $id_utilisateur);
 $stmt_check->execute();
 $stmt_check->store_result();
@@ -54,14 +54,14 @@ $mysqli->begin_transaction();
 
 try {
     //  Mise à jour de la table UTILISATEUR
-    $sql_user = "UPDATE UTILISATEUR SET nom = ?, prenom = ?, email = ?, telephone = ? WHERE id_utilisateur = ?";
+    $sql_user = "UPDATE utilisateur SET nom = ?, prenom = ?, email = ?, telephone = ? WHERE id_utilisateur = ?";
     $stmt_user = $mysqli->prepare($sql_user);
     $stmt_user->bind_param('ssssi', $nom, $prenom, $email, $telephone, $id_utilisateur);
     $stmt_user->execute();
     $stmt_user->close();
 
     //  Mise à jour de la table DEMENAGEUR
-    $sql_demenageur = "UPDATE DEMENAGEUR SET adress = ?, ville = ?, code_postal = ?, vehicule = ? WHERE id_utilisateur = ?";
+    $sql_demenageur = "UPDATE demenageur SET adress = ?, ville = ?, code_postal = ?, vehicule = ? WHERE id_utilisateur = ?";
     $stmt_demenageur = $mysqli->prepare($sql_demenageur);
     $stmt_demenageur->bind_param('ssssi', $adresse, $ville, $code_postal, $vehicule, $id_utilisateur);
     $stmt_demenageur->execute();

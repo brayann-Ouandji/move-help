@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
 }
 //récupérer l'id du client connecté (diff de l' id_utilisateur)
 $id_utilisateur = $_SESSION['user_id'];
-$stmt = $mysqli->prepare("SELECT id_client FROM CLIENT WHERE id_utilisateur = ?");
+$stmt = $mysqli->prepare("SELECT id_client FROM client WHERE id_utilisateur = ?");
 $stmt->bind_param('i', $id_utilisateur);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -57,7 +57,7 @@ $mysqli->begin_transaction();
 
 try {
     // Insérer l'annonce dans la table ANNONCE
-    $sql_annonce = "INSERT INTO ANNONCE (id_client, titre, description, date_demenagement, 
+    $sql_annonce = "INSERT INTO annonce (id_client, titre, description, date_demenagement, 
                         ville_depart, code_postal_depart, type_logement_depart, etage_depart, ascenseur_depart,
                         ville_arrivee, code_postal_arrivee, type_logement_arrivee, etage_arrivee, ascenseur_arrivee,
                         volume_m3, nb_demenageur_souhaites, statut)
@@ -102,7 +102,7 @@ $upload_dir = __DIR__ . '/../uploads/';
                 if (move_uploaded_file($tmp_name, $chemin_destination)) {
                     
                     // 9. Insérer la photo dans la table PHOTO_ANNONCE
-                    $sql_photo = "INSERT INTO PHOTO_ANNONCE (id_annonce, nom_fichier, chemin_fichier, ordre)
+                    $sql_photo = "INSERT INTO photo_annonce (id_annonce, nom_fichier, chemin_fichier, ordre)
                                   VALUES (?, ?, ?, ?)";
                     $stmt_photo = $mysqli->prepare($sql_photo);
                     $stmt_photo->bind_param('issi', $id_annonce_creee, $nom_unique, $chemin_bdd, $ordre);

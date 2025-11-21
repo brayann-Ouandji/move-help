@@ -24,14 +24,14 @@ $id_utilisateur = $_SESSION['user_id'];
 $redirect_url = '../client/detail_annonce.php?id=' . $id_annonce;
 
 // VÉRIFIER LES DROITS (TRÈS IMPORTANT)
-$stmt_client = $mysqli->prepare("SELECT id_client FROM CLIENT WHERE id_utilisateur = ?");
+$stmt_client = $mysqli->prepare("SELECT id_client FROM client WHERE id_utilisateur = ?");
 $stmt_client->bind_param('i', $id_utilisateur);
 $stmt_client->execute();
 $id_client_connecte = $stmt_client->get_result()->fetch_assoc()['id_client'];
 $stmt_client->close();
 
 // Vérifier que l'annonce appartient bien à ce client ET récupérer le nombre de déménageurs requis
-$stmt_check = $mysqli->prepare("SELECT id_client, nb_demenageur_souhaites FROM ANNONCE WHERE id_annonce = ?");
+$stmt_check = $mysqli->prepare("SELECT id_client, nb_demenageur_souhaites FROM annonce WHERE id_annonce = ?");
 $stmt_check->bind_param('i', $id_annonce);
 $stmt_check->execute();
 $result_check = $stmt_check->get_result();
@@ -53,14 +53,14 @@ try {
         //ACCEPTER 
         
         // Mettre  la proposition à 'acceptee'
-        $sql_prop = "UPDATE PROPOSITION SET statut = 'acceptee', date_reponse = NOW() WHERE id_proposition = ?";
+        $sql_prop = "UPDATE proposition SET statut = 'acceptee', date_reponse = NOW() WHERE id_proposition = ?";
         $stmt_prop = $mysqli->prepare($sql_prop);
         $stmt_prop->bind_param('i', $id_proposition);
         $stmt_prop->execute();
         $stmt_prop->close();
 
         //  combien de déménageurs sont maintenant acceptés
-        $stmt_count = $mysqli->prepare("SELECT COUNT(*) as total_acceptees FROM PROPOSITION WHERE id_annonce = ? AND statut = 'acceptee'");
+        $stmt_count = $mysqli->prepare("SELECT COUNT(*) as total_acceptees FROM proposition WHERE id_annonce = ? AND statut = 'acceptee'");
         $stmt_count->bind_param('i', $id_annonce);
         $stmt_count->execute();
         $total_acceptees_maintenant = (int)$stmt_count->get_result()->fetch_assoc()['total_acceptees'];
@@ -72,14 +72,14 @@ try {
             // QUOTA ATTEINT : On verrouille l'annonce et on refuse les autres
             
             // Mettre l'annonce à 'acceptee'
-            $sql_annonce = "UPDATE ANNONCE SET statut = 'acceptee' WHERE id_annonce = ?";
+            $sql_annonce = "UPDATE annonce SET statut = 'acceptee' WHERE id_annonce = ?";
             $stmt_annonce = $mysqli->prepare($sql_annonce);
             $stmt_annonce->bind_param('i', $id_annonce);
             $stmt_annonce->execute();
             $stmt_annonce->close();
             
             //  Refuser toutes les autres propositions qui sont encore 'en_attente'
-            $sql_refus = "UPDATE PROPOSITION SET statut = 'refusee', date_reponse = NOW() 
+            $sql_refus = "UPDATE proposition SET statut = 'refusee', date_reponse = NOW() 
                           WHERE id_annonce = ? AND statut = 'en_attente'";
             $stmt_refus = $mysqli->prepare($sql_refus);
             $stmt_refus->bind_param('i', $id_annonce);
@@ -97,7 +97,7 @@ try {
     } elseif ($action == 'refuser') {
         //REFUSER
         
-        $sql_prop = "UPDATE PROPOSITION SET statut = 'refusee', date_reponse = NOW() WHERE id_proposition = ?";
+        $sql_prop = "UPDATE proposition SET statut = 'refusee', date_reponse = NOW() WHERE id_proposition = ?";
         $stmt_prop = $mysqli->prepare($sql_prop);
         $stmt_prop->bind_param('i', $id_proposition);
         $stmt_prop->execute();

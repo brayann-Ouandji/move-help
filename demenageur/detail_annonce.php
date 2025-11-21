@@ -5,7 +5,7 @@ require_once __DIR__ . '/../includes/db.php';
 
 
 $id_utilisateur = $_SESSION['user_id'];
-$stmt_dem = $mysqli->prepare("SELECT id_demenageur FROM DEMENAGEUR WHERE id_utilisateur = ?");
+$stmt_dem = $mysqli->prepare("SELECT id_demenageur FROM demenageur WHERE id_utilisateur = ?");
 $stmt_dem->bind_param('i', $id_utilisateur);
 $stmt_dem->execute();
 $result_dem = $stmt_dem->get_result();
@@ -22,7 +22,7 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 $id_annonce = (int)$_GET['id'];
 
 
-$sql_annonce = "SELECT * FROM ANNONCE WHERE id_annonce = ? AND statut = 'publiee'";
+$sql_annonce = "SELECT * FROM annonce WHERE id_annonce = ? AND statut = 'publiee'";
 $stmt_annonce = $mysqli->prepare($sql_annonce);
 $stmt_annonce->bind_param('i', $id_annonce);
 $stmt_annonce->execute();
@@ -38,7 +38,7 @@ $annonce = $result_annonce->fetch_assoc();
 $stmt_annonce->close();
 
 
-$sql_photos = "SELECT * FROM PHOTO_ANNONCE WHERE id_annonce = ? ORDER BY ordre ASC";
+$sql_photos = "SELECT * FROM photo_annonce WHERE id_annonce = ? ORDER BY ordre ASC";
 $stmt_photos = $mysqli->prepare($sql_photos);
 $stmt_photos->bind_param('i', $id_annonce);
 $stmt_photos->execute();
@@ -47,7 +47,7 @@ $photos = $result_photos->fetch_all(MYSQLI_ASSOC);
 $stmt_photos->close();
 
 
-$sql_prop = "SELECT * FROM PROPOSITION WHERE id_annonce = ? AND id_demenageur = ?";
+$sql_prop = "SELECT * FROM proposition WHERE id_annonce = ? AND id_demenageur = ?";
 $stmt_prop = $mysqli->prepare($sql_prop);
 $stmt_prop->bind_param('ii', $id_annonce, $id_demenageur_connecte);
 $stmt_prop->execute();

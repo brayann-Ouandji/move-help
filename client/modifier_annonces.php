@@ -8,7 +8,7 @@ require_once __DIR__ . '/../includes/db.php'; // Connexion BDD
 
 //récupérer l'ID client (pour la vérification de sécurité)
 $id_utilisateur = $_SESSION['user_id'];
-$stmt_client = $mysqli->prepare("SELECT id_client FROM CLIENT WHERE id_utilisateur = ?");
+$stmt_client = $mysqli->prepare("SELECT id_client FROM client WHERE id_utilisateur = ?");
 $stmt_client->bind_param('i', $id_utilisateur);
 $stmt_client->execute();
 $id_client_connecte = $stmt_client->get_result()->fetch_assoc()['id_client'];
@@ -23,7 +23,7 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 $id_annonce = (int)$_GET['id'];
 
 //  Récupérer l'annonce ET VÉRIFIER QU'ELLE APPARTIENT AU CLIENT
-$sql_annonce = "SELECT * FROM ANNONCE WHERE id_annonce = ? AND id_client = ?";
+$sql_annonce = "SELECT * FROM annonce WHERE id_annonce = ? AND id_client = ?";
 $stmt_annonce = $mysqli->prepare($sql_annonce);
 $stmt_annonce->bind_param('ii', $id_annonce, $id_client_connecte);
 $stmt_annonce->execute();

@@ -22,7 +22,7 @@ $id_annonce_a_supprimer = (int)$_GET['id'];
 
 
 //Récupérer les chemins de toutes les photos de cette annonce
-$stmt_photos = $mysqli->prepare("SELECT chemin_fichier FROM PHOTO_ANNONCE WHERE id_annonce = ?");
+$stmt_photos = $mysqli->prepare("SELECT chemin_fichier FROM photo_annonce WHERE id_annonce = ?");
 $stmt_photos->bind_param('i', $id_annonce_a_supprimer);
 $stmt_photos->execute();
 $result_photos = $stmt_photos->get_result();
@@ -40,7 +40,7 @@ $stmt_photos->close();
 // "ON DELETE CASCADE" et "ON DELETE SET NULL"
 // la suppression de l'annonce va automatiquement nettoyer
 // les entrées dans PHOTO_ANNONCE, MESSAGE, PROPOSITION, et EVALUATION.
-$stmt_delete = $mysqli->prepare("DELETE FROM ANNONCE WHERE id_annonce = ?");
+$stmt_delete = $mysqli->prepare("DELETE FROM annonce WHERE id_annonce = ?");
 $stmt_delete->bind_param('i', $id_annonce_a_supprimer);
 
 if ($stmt_delete->execute()) {

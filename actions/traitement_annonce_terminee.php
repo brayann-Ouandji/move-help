@@ -20,7 +20,7 @@ $id_utilisateur = $_SESSION['user_id'];
 $redirect_url = '../client/detail_annonce.php?id=' . $id_annonce;
 
 // Récupérer l'ID client
-$stmt_client = $mysqli->prepare("SELECT id_client FROM CLIENT WHERE id_utilisateur = ?");
+$stmt_client = $mysqli->prepare("SELECT id_client FROM client WHERE id_utilisateur = ?");
 $stmt_client->bind_param('i', $id_utilisateur);
 $stmt_client->execute();
 $id_client_connecte = $stmt_client->get_result()->fetch_assoc()['id_client'];
@@ -29,7 +29,7 @@ $stmt_client->close();
 
 
 //  Vérifier que l'annonce appartient au client ET qu'elle est "acceptee"
-$stmt_check = $mysqli->prepare("SELECT id_client, date_demenagement FROM ANNONCE WHERE id_annonce = ? AND id_client = ? AND statut = 'acceptee'");
+$stmt_check = $mysqli->prepare("SELECT id_client, date_demenagement FROM annonce WHERE id_annonce = ? AND id_client = ? AND statut = 'acceptee'");
 $stmt_check->bind_param('ii', $id_annonce, $id_client_connecte);
 $stmt_check->execute();
 $result_check = $stmt_check->get_result();
@@ -52,7 +52,7 @@ if ($date_dem > new DateTime()) {
 
 //  LA MISE À JOUR
 try {
-    $sql_update = "UPDATE ANNONCE SET statut = 'terminee', date_modification = NOW() WHERE id_annonce = ?";
+    $sql_update = "UPDATE annonce SET statut = 'terminee', date_modification = NOW() WHERE id_annonce = ?";
     $stmt_update = $mysqli->prepare($sql_update);
     $stmt_update->bind_param('i', $id_annonce);
     

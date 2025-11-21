@@ -61,8 +61,8 @@ include 'includes/db.php';
                 a.volume_m3,
                 a.nb_demenageur_souhaites,
                 a.date_demenagement,
-                (SELECT p.nom_fichier FROM PHOTO_ANNONCE p WHERE p.id_annonce = a.id_annonce ORDER BY p.ordre ASC LIMIT 1) as photo_principale
-              FROM ANNONCE a
+                (SELECT p.nom_fichier FROM photo_annonce p WHERE p.id_annonce = a.id_annonce ORDER BY p.ordre ASC LIMIT 1) as photo_principale
+              FROM annonce a
               WHERE a.statut = 'publiee'
               ORDER BY a.date_creation DESC
               LIMIT 3";

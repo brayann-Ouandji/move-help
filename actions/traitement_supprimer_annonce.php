@@ -19,14 +19,14 @@ $id_annonce_a_supprimer = (int)$_GET['id'];
 $id_utilisateur = $_SESSION['user_id'];
 
 // Récupérer l'ID client
-$stmt_client = $mysqli->prepare("SELECT id_client FROM CLIENT WHERE id_utilisateur = ?");
+$stmt_client = $mysqli->prepare("SELECT id_client FROM client WHERE id_utilisateur = ?");
 $stmt_client->bind_param('i', $id_utilisateur);
 $stmt_client->execute();
 $id_client_connecte = $stmt_client->get_result()->fetch_assoc()['id_client'];
 $stmt_client->close();
 
 // VÉRIFIER QUE L'ANNONCE APPARTIENT AU CLIENT (TRÈS IMPORTANT)
-$stmt_check = $mysqli->prepare("SELECT id_client FROM ANNONCE WHERE id_annonce = ?");
+$stmt_check = $mysqli->prepare("SELECT id_client FROM annonce WHERE id_annonce = ?");
 $stmt_check->bind_param('i', $id_annonce_a_supprimer);
 $stmt_check->execute();
 $result_check = $stmt_check->get_result();
@@ -45,7 +45,7 @@ if ($annonce_owner['id_client'] != $id_client_connecte) {
 }
 
 // SUPPRIMER LES PHOTOS ASSOCIÉES (fichiers physiques)
-$stmt_photos = $mysqli->prepare("SELECT chemin_fichier FROM PHOTO_ANNONCE WHERE id_annonce = ?");
+$stmt_photos = $mysqli->prepare("SELECT chemin_fichier FROM photo_annonce WHERE id_annonce = ?");
 $stmt_photos->bind_param('i', $id_annonce_a_supprimer);
 $stmt_photos->execute();
 $result_photos = $stmt_photos->get_result();
@@ -57,7 +57,7 @@ while ($photo = $result_photos->fetch_assoc()) {
 }
 $stmt_photos->close();
 
-$stmt_delete = $mysqli->prepare("DELETE FROM ANNONCE WHERE id_annonce = ?");
+$stmt_delete = $mysqli->prepare("DELETE FROM annonce WHERE id_annonce = ?");
 $stmt_delete->bind_param('i', $id_annonce_a_supprimer);
 
 if ($stmt_delete->execute()) {

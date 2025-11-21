@@ -7,7 +7,7 @@ require_once __DIR__ . '/../includes/db.php';
 
 
 $id_utilisateur = $_SESSION['user_id'];
-$stmt_client = $mysqli->prepare("SELECT id_client FROM CLIENT WHERE id_utilisateur = ?");
+$stmt_client = $mysqli->prepare("SELECT id_client FROM client WHERE id_utilisateur = ?");
 $stmt_client->bind_param('i', $id_utilisateur);
 $stmt_client->execute();
 $id_client_connecte = $stmt_client->get_result()->fetch_assoc()['id_client'];
@@ -22,7 +22,7 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 $id_annonce = (int)$_GET['id'];
 
 // Vérifier que l'annonce appartient au client ET qu'elle est "terminee"
-$sql_annonce = "SELECT * FROM ANNONCE WHERE id_annonce = ? AND id_client = ? AND statut = 'terminee'";
+$sql_annonce = "SELECT * FROM annonce WHERE id_annonce = ? AND id_client = ? AND statut = 'terminee'";
 $stmt_annonce = $mysqli->prepare($sql_annonce);
 $stmt_annonce->bind_param('ii', $id_annonce, $id_client_connecte);
 $stmt_annonce->execute();
@@ -41,10 +41,10 @@ $stmt_annonce->close();
 // On cherche les déménageurs qui ont été 'acceptee' pour cette annonce
 $sql_dem = "SELECT 
                 d.id_demenageur, u.nom, u.prenom, u.photo_profil,
-                (SELECT id_evaluation FROM EVALUATION e WHERE e.id_annonce = ? AND e.id_demenageur = d.id_demenageur) as evaluation_existante
-            FROM PROPOSITION p
-            JOIN DEMENAGEUR d ON p.id_demenageur = d.id_demenageur
-            JOIN UTILISATEUR u ON d.id_utilisateur = u.id_utilisateur
+                (SELECT id_evaluation FROM evaluation e WHERE e.id_annonce = ? AND e.id_demenageur = d.id_demenageur) as evaluation_existante
+            FROM proposition p
+            JOIN demenageur d ON p.id_demenageur = d.id_demenageur
+            JOIN utilisateur u ON d.id_utilisateur = u.id_utilisateur
             WHERE p.id_annonce = ?
             AND p.statut = 'acceptee'";
 
