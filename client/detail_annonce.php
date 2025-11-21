@@ -86,7 +86,7 @@ if (isset($_SESSION['error_message'])) {
         if ($annonce['statut'] == 'publiee'):
             // Si l'annonce est 'publiée', on peut la modifier ou la supprimer
         ?>
-            <a href="modifier-annonce.php?id=<?php echo $id_annonce; ?>" class="btn btn-outline-primary"><i class="bi bi-pencil"></i> Modifier</a>
+            <a href="modifier_annonce.php?id=<?php echo $id_annonce; ?>" class="btn btn-outline-primary"><i class="bi bi-pencil"></i> Modifier</a>
             <a href="../actions/traitement_supprimer_annonce.php?id=<?php echo $id_annonce; ?>" class="btn btn-outline-danger" onclick="return confirm('Voulez-vous vraiment supprimer cette annonce ?');">
                 <i class="bi bi-trash"></i> Supprimer
             </a>

@@ -77,7 +77,7 @@ if (isset($_SESSION['error_message'])) {
     <div class="col-md-6 mb-3">
         <div class="card">
             <div class="card-body text-center">
-                <img src="../img/default_profil.png" class="img-fluid rounded-circle mb-2" style="width: 80px;" alt="profil">
+                <img src="../image/default_profil.png" class="img-fluid rounded-circle mb-2" style="width: 80px;" alt="profil">
                 <h5 class="card-title"><?php echo ($dem['prenom'] . ' ' . $dem['nom']); ?></h5>
                 
                 <?php if ($dem['evaluation_existante']): // Si le client a DÉJÀ évalué ce déménageur ?>

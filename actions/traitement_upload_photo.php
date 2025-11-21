@@ -30,7 +30,7 @@ if (isset($_FILES['photo_profil']) && $_FILES['photo_profil']['error'] === UPLOA
     $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
 
     //  Définir le dossier d'upload (différent de celui des annonces)
-    $upload_dir = __DIR__ . '/../uploads/profiL/';
+    $upload_dir = __DIR__ . '/../uploads/profil/';
    
     if (!is_dir($upload_dir)) {
         mkdir($upload_dir, 0755, true);

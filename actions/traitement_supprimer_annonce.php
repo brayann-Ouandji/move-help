@@ -12,7 +12,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] != 'client') {
 // Vérifier que l'ID de l'annonce est passé
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     $_SESSION['error_message'] = "Requête invalide.";
-    header('Location: ../client/mes-annonces.php');
+    header('Location: ../client/mes_annonces.php');
     exit;
 }
 $id_annonce_a_supprimer = (int)$_GET['id'];
@@ -32,7 +32,7 @@ $stmt_check->execute();
 $result_check = $stmt_check->get_result();
 if ($result_check->num_rows === 0) {
     $_SESSION['error_message'] = "Annonce non trouvée.";
-    header('Location: ../client/mes-annonces.php');
+    header('Location: ../client/mes_annonces.php');
     exit;
 }
 $annonce_owner = $result_check->fetch_assoc();
@@ -40,7 +40,7 @@ $stmt_check->close();
 
 if ($annonce_owner['id_client'] != $id_client_connecte) {
     $_SESSION['error_message'] = "Vous n'êtes pas autorisé à supprimer cette annonce.";
-    header('Location: ../client/mes-annonces.php');
+    header('Location: ../client/mes_annonces.php');
     exit;
 }
 
@@ -70,6 +70,6 @@ $stmt_delete->close();
 $mysqli->close();
 
 // Rediriger vers la liste des annonces
-header('Location: ../client/mes-annonces.php');
+header('Location: ../client/mes_annonces.php');
 exit;
 ?>
