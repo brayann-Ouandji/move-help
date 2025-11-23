@@ -1,4 +1,4 @@
-<?php
+<?php 
 $titre_page = "Inscription Client";
 include 'includes/header.php';
 // session_start();
